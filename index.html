@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,139 +7,280 @@
     <meta name="description" content="Portfolio of Saeed Ahmad Jahash - CEO, PMP, ISO 9001 Lead Auditor, and Transformational Leader in Media & Technology.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Placeholder for FontAwesome, might need CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <header>
-        <nav>
-            <div class="logo">SAEED</div>
+    <!-- Ambient Background -->
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb-2" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb-3" aria-hidden="true"></div>
+
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header id="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <span class="logo-s">S</span><span class="logo-dot">.</span>
+            </div>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact" class="btn-contact">Contact</a></li>
+                <li><a href="#about"      data-en="About"      data-ar="عن سعيد">About</a></li>
+                <li><a href="#experience" data-en="Experience"  data-ar="الخبرة">Experience</a></li>
+                <li><a href="#projects"   data-en="Projects"    data-ar="المشاريع">Projects</a></li>
+                <li><a href="#skills"     data-en="Skills"      data-ar="المهارات">Skills</a></li>
+                <li><a href="#contact" class="btn-nav" data-en="Contact" data-ar="تواصل">Contact</a></li>
             </ul>
-            <div class="hamburger">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
+            <div class="nav-actions">
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle Language">
+                    <span class="lang-label lang-en-label">EN</span>
+                    <span class="lang-divider"></span>
+                    <span class="lang-label lang-ar-label">ع</span>
+                </button>
+                <div class="hamburger" id="hamburger" role="button" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </nav>
     </header>
 
     <main>
+
+        <!-- ═══════════════ HERO ═══════════════ -->
         <section id="hero">
-            <div class="hero-bg"></div>
-            <div class="container">
-                <p class="hero-subtitle" data-aos="fade-up">Hello, I am</p>
-                <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">Saeed Ahmad <span class="highlight">Jahash</span></h1>
-                <p class="hero-role" data-aos="fade-up" data-aos-delay="200">Transformational Leader | CEO | PMP® | ISO 9001 Lead Auditor</p>
-                <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
-                    <a href="#about" class="btn btn-primary">Discover My Journey</a>
-              <!--    <a href="SAEED JAHASH.CV.v1 (1).pdf" class="btn btn-secondary" download><i class="fas fa-download"></i> Download CV</a> -->
+            <div class="hero-content">
+                <div class="hero-availability-tag">
+                    <span class="pulse-dot"></span>
+                    <span data-en="Open to Collaboration" data-ar="متاح للتعاون">Open to Collaboration</span>
+                </div>
+                <p class="hero-greeting" data-en="Hello, I am" data-ar="مرحباً، أنا">Hello, I am</p>
+                <h1 class="hero-name">
+                    <span class="name-line-1">Saeed</span>
+                    <span class="name-line-2">Ahmad <em class="name-accent">Jahash</em></span>
+                </h1>
+                <div class="hero-typewriter-wrap">
+                    <span id="typewriterText" class="typewriter-text"></span><span class="typewriter-cursor">|</span>
+                </div>
+                <a href="#about" class="btn-hero">
+                    <span data-en="Discover My Journey" data-ar="اكتشف مسيرتي">Discover My Journey</span>
+                    <span class="btn-hero-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <div class="hero-stats-row">
+                    <div class="hero-stat">
+                        <span class="stat-num">5+</span>
+                        <span class="stat-lbl" data-en="Years" data-ar="سنوات">Years</span>
+                    </div>
+                    <div class="stat-sep"></div>
+                    <div class="hero-stat">
+                        <span class="stat-num">6+</span>
+                        <span class="stat-lbl" data-en="Projects" data-ar="مشاريع">Projects</span>
+                    </div>
+                    <div class="stat-sep"></div>
+                    <div class="hero-stat">
+                        <span class="stat-num">5</span>
+                        <span class="stat-lbl" data-en="Certifications" data-ar="شهادات">Certifications</span>
+                    </div>
                 </div>
             </div>
-            <div class="scroll-down">
-                <span></span>
+
+            <div class="hero-visual" aria-hidden="true">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+                <div class="ring ring-3"></div>
+                <div class="avatar-core">
+                    <span class="avatar-initials">SJ</span>
+                    <div class="avatar-glow"></div>
+                </div>
+                <div class="float-badge badge-pmp">
+                    <i class="fas fa-certificate"></i><span>PMP®</span>
+                </div>
+                <div class="float-badge badge-iso">
+                    <i class="fas fa-shield-alt"></i><span>ISO 9001</span>
+                </div>
+                <div class="float-badge badge-ai">
+                    <i class="fas fa-robot"></i><span>AI / ML</span>
+                </div>
+            </div>
+
+            <div class="scroll-cue" aria-hidden="true">
+                <div class="scroll-wheel-wrap">
+                    <div class="scroll-wheel-inner"></div>
+                </div>
             </div>
         </section>
 
+        <!-- ═══════════════ ABOUT ═══════════════ -->
         <section id="about">
             <div class="container">
-                <h2 class="section-title">Who is <span class="highlight">Saeed?</span></h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>I am a transformational leader with a unique blend of technical mastery and strategic vision. Holding dual degrees in <strong>Media</strong> and <strong>Information Technology</strong>, I bridge the gap between digital innovation and institutional excellence.</p>
-                        <p>My journey is defined by a commitment to quality and efficiency. From leading smart inspection systems across public sectors to governing agricultural cooperatives, I leverage <strong>AI, Data Visualization, and Unreal Engine</strong> to turn complex data into actionable strategies.</p>
-                        <p>Driven by the vision of <strong>Digital Leadership</strong>, I build tools that enhance transparency, empower communities, and align with national transformation goals.</p>
+                <div class="section-header">
+                    <span class="section-tag" data-en="01 — About" data-ar="٠١ — عن سعيد">01 — About</span>
+                    <h2 class="section-title">
+                        <span data-en="Who is " data-ar="من هو ">Who is </span><span class="gold" data-en="Saeed?" data-ar="سعيد؟">Saeed?</span>
+                    </h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about-text anim">
+                        <p data-en="I am a transformational leader with a unique blend of technical mastery and strategic vision. Holding dual degrees in <strong>Media</strong> and <strong>Information Technology</strong>, I bridge the gap between digital innovation and institutional excellence."
+                           data-ar="أنا قائد تحويلي يجمع بين الإتقان التقني والرؤية الاستراتيجية. أحمل شهادتين في <strong>الإعلام</strong> و<strong>تقنية المعلومات</strong>، وأجسّر الفجوة بين الابتكار الرقمي والتميز المؤسسي.">
+                            I am a transformational leader with a unique blend of technical mastery and strategic vision. Holding dual degrees in <strong>Media</strong> and <strong>Information Technology</strong>, I bridge the gap between digital innovation and institutional excellence.
+                        </p>
+                        <p data-en="My journey is defined by a commitment to quality and efficiency. From leading smart inspection systems across public sectors to governing agricultural cooperatives, I leverage <strong>AI, Data Visualization, and Unreal Engine</strong> to turn complex data into actionable strategies."
+                           data-ar="رحلتي محددة بالالتزام بالجودة والكفاءة. من قيادة أنظمة التفتيش الذكية عبر القطاعات العامة إلى إدارة التعاونيات الزراعية، أستثمر <strong>الذكاء الاصطناعي وتصور البيانات وUnreal Engine</strong> لتحويل البيانات المعقدة إلى استراتيجيات قابلة للتنفيذ.">
+                            My journey is defined by a commitment to quality and efficiency. From leading smart inspection systems across public sectors to governing agricultural cooperatives, I leverage <strong>AI, Data Visualization, and Unreal Engine</strong> to turn complex data into actionable strategies.
+                        </p>
+                        <p data-en="Driven by the vision of <strong>Digital Leadership</strong>, I build tools that enhance transparency, empower communities, and align with national transformation goals."
+                           data-ar="مدفوعاً برؤية <strong>القيادة الرقمية</strong>، أبني أدوات تعزز الشفافية وتمكّن المجتمعات وتتوافق مع أهداف التحول الوطني.">
+                            Driven by the vision of <strong>Digital Leadership</strong>, I build tools that enhance transparency, empower communities, and align with national transformation goals.
+                        </p>
+                    </div>
+                    <div class="about-highlights anim">
+                        <div class="hl-card">
+                            <div class="hl-icon"><i class="fas fa-rocket"></i></div>
+                            <div class="hl-body">
+                                <h4 data-en="Digital Pioneer" data-ar="رائد رقمي">Digital Pioneer</h4>
+                                <p data-en="Bridging tech &amp; strategy" data-ar="جسر بين التقنية والاستراتيجية">Bridging tech &amp; strategy</p>
+                            </div>
+                        </div>
+                        <div class="hl-card">
+                            <div class="hl-icon"><i class="fas fa-vr-cardboard"></i></div>
+                            <div class="hl-body">
+                                <h4 data-en="VR / AR Creator" data-ar="مبدع الواقع الافتراضي">VR / AR Creator</h4>
+                                <p data-en="Unreal Engine &amp; Mixed Reality" data-ar="Unreal Engine والواقع المختلط">Unreal Engine &amp; Mixed Reality</p>
+                            </div>
+                        </div>
+                        <div class="hl-card">
+                            <div class="hl-icon"><i class="fas fa-sitemap"></i></div>
+                            <div class="hl-body">
+                                <h4 data-en="Data Architect" data-ar="مهندس البيانات">Data Architect</h4>
+                                <p data-en="AI &amp; Data Visualization" data-ar="الذكاء الاصطناعي وتصور البيانات">AI &amp; Data Visualization</p>
+                            </div>
+                        </div>
+                        <div class="hl-card">
+                            <div class="hl-icon"><i class="fas fa-award"></i></div>
+                            <div class="hl-body">
+                                <h4 data-en="Quality Leader" data-ar="قائد الجودة">Quality Leader</h4>
+                                <p data-en="ISO 9001 &amp; PMP Certified" data-ar="معتمد ISO 9001 و PMP">ISO 9001 &amp; PMP Certified</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- ═══════════════ EXPERIENCE ═══════════════ -->
         <section id="experience">
             <div class="container">
-                <h2 class="section-title">Professional <span class="highlight">Odyssey</span></h2>
+                <div class="section-header">
+                    <span class="section-tag" data-en="02 — Experience" data-ar="٠٢ — الخبرة">02 — Experience</span>
+                    <h2 class="section-title">
+                        <span data-en="Professional " data-ar="المسيرة ">Professional </span><span class="gold" data-en="Odyssey" data-ar="المهنية">Odyssey</span>
+                    </h2>
+                </div>
                 <div class="timeline">
-                    <!-- Rijal Almaa -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">Apr 2024 – Oct 2024</div>
-                        <div class="timeline-content card">
-                            <h3>Chief Executive Officer</h3>
-                            <h4>Rijal Almaa Agricultural Cooperative Association</h4>
+
+                    <div class="tl-item anim">
+                        <div class="tl-marker">
+                            <div class="tl-icon"><i class="fas fa-crown"></i></div>
+                            <div class="tl-line"></div>
+                        </div>
+                        <div class="tl-card glass-card">
+                            <div class="tl-meta">
+                                <span class="tl-date" data-en="Apr 2024 – Oct 2024" data-ar="أبريل ٢٠٢٤ – أكتوبر ٢٠٢٤">Apr 2024 – Oct 2024</span>
+                                <span class="tl-badge" data-en="Leadership" data-ar="قيادة">Leadership</span>
+                            </div>
+                            <h3 data-en="Chief Executive Officer" data-ar="الرئيس التنفيذي">Chief Executive Officer</h3>
+                            <h4 data-en="Rijal Almaa Agricultural Cooperative Association" data-ar="جمعية رجال ألمع الزراعية التعاونية">Rijal Almaa Agricultural Cooperative Association</h4>
                             <ul>
-                                <li>Directed multi-sector operations ensuring compliance with agricultural & financial regulations.</li>
-                                <li>Implemented ERP-based workflows streamlining internal operations.</li>
-                                <li>Developed digital ID systems (NFC, QR, Code128) for member traceability.</li>
-                                <li>Empowered local startups through digital inclusion initiatives.</li>
+                                <li data-en="Directed multi-sector operations ensuring compliance with agricultural &amp; financial regulations." data-ar="قاد عمليات متعددة القطاعات وضمان الامتثال للوائح الزراعية والمالية.">Directed multi-sector operations ensuring compliance with agricultural &amp; financial regulations.</li>
+                                <li data-en="Implemented ERP-based workflows streamlining internal operations." data-ar="نفّذ سير عمل قائم على ERP لتبسيط العمليات الداخلية.">Implemented ERP-based workflows streamlining internal operations.</li>
+                                <li data-en="Developed digital ID systems (NFC, QR, Code128) for member traceability." data-ar="طوّر أنظمة هوية رقمية (NFC وQR وCode128) لتتبع الأعضاء.">Developed digital ID systems (NFC, QR, Code128) for member traceability.</li>
+                                <li data-en="Empowered local startups through digital inclusion initiatives." data-ar="مكّن الشركات الناشئة المحلية من خلال مبادرات الإدماج الرقمي.">Empowered local startups through digital inclusion initiatives.</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Marwan Alshaali Group -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">Nov 2023 – Feb 2024</div>
-                        <div class="timeline-content card">
-                            <h3>Sales Executive</h3>
-                            <h4>Marwan Alshaali Group, Riyadh</h4>
+                    <div class="tl-item anim">
+                        <div class="tl-marker">
+                            <div class="tl-icon"><i class="fas fa-handshake"></i></div>
+                            <div class="tl-line"></div>
+                        </div>
+                        <div class="tl-card glass-card">
+                            <div class="tl-meta">
+                                <span class="tl-date" data-en="Nov 2023 – Feb 2024" data-ar="نوفمبر ٢٠٢٣ – فبراير ٢٠٢٤">Nov 2023 – Feb 2024</span>
+                                <span class="tl-badge" data-en="Sales" data-ar="مبيعات">Sales</span>
+                            </div>
+                            <h3 data-en="Sales Executive" data-ar="مدير المبيعات">Sales Executive</h3>
+                            <h4 data-en="Marwan Alshaali Group, Riyadh" data-ar="مجموعة مروان الشعالي، الرياض">Marwan Alshaali Group, Riyadh</h4>
                             <ul>
-                                <li>Managed B2B sales for global automotive brands (CFMOTO, Greenman).</li>
-                                <li>Secured strategic deals across government and private sectors.</li>
-                                <li>Delivered client-focused solutions for premium electric mobility products.</li>
+                                <li data-en="Managed B2B sales for global automotive brands (CFMOTO, Greenman)." data-ar="أدار المبيعات بين الشركات لعلامات سيارات عالمية (CFMOTO وGreenman).">Managed B2B sales for global automotive brands (CFMOTO, Greenman).</li>
+                                <li data-en="Secured strategic deals across government and private sectors." data-ar="حقق صفقات استراتيجية عبر القطاعين الحكومي والخاص.">Secured strategic deals across government and private sectors.</li>
+                                <li data-en="Delivered client-focused solutions for premium electric mobility products." data-ar="قدّم حلولاً موجهة للعميل لمنتجات التنقل الكهربائي المميزة.">Delivered client-focused solutions for premium electric mobility products.</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Ministry of Tourism (TUV) -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">Apr 2023 – Jun 2023</div>
-                        <div class="timeline-content card">
-                            <h3>Quality Controller</h3>
-                            <h4>Ministry of Tourism (via TÜV Rheinland)</h4>
+                    <div class="tl-item anim">
+                        <div class="tl-marker">
+                            <div class="tl-icon"><i class="fas fa-magnifying-glass"></i></div>
+                            <div class="tl-line"></div>
+                        </div>
+                        <div class="tl-card glass-card">
+                            <div class="tl-meta">
+                                <span class="tl-date" data-en="Apr 2023 – Jun 2023" data-ar="أبريل ٢٠٢٣ – يونيو ٢٠٢٣">Apr 2023 – Jun 2023</span>
+                                <span class="tl-badge" data-en="Quality" data-ar="جودة">Quality</span>
+                            </div>
+                            <h3 data-en="Quality Controller" data-ar="مراقب الجودة">Quality Controller</h3>
+                            <h4 data-en="Ministry of Tourism (via TÜV Rheinland)" data-ar="وزارة السياحة (عبر TÜV Rheinland)">Ministry of Tourism (via TÜV Rheinland)</h4>
                             <ul>
-                                <li>Spearheaded risk and compliance audits aligned with Vision 2030.</li>
-                                <li>Applied advanced QA methodologies (FMEA, SPC, HACCP).</li>
-                                <li>Delivered data-driven insights to boost investor confidence.</li>
+                                <li data-en="Spearheaded risk and compliance audits aligned with Vision 2030." data-ar="قاد عمليات تدقيق المخاطر والامتثال المتوافقة مع رؤية ٢٠٣٠.">Spearheaded risk and compliance audits aligned with Vision 2030.</li>
+                                <li data-en="Applied advanced QA methodologies (FMEA, SPC, HACCP)." data-ar="طبّق منهجيات ضمان الجودة المتقدمة (FMEA وSPC وHACCP).">Applied advanced QA methodologies (FMEA, SPC, HACCP).</li>
+                                <li data-en="Delivered data-driven insights to boost investor confidence." data-ar="قدّم رؤى مستندة للبيانات لتعزيز ثقة المستثمرين.">Delivered data-driven insights to boost investor confidence.</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Ministry of Tourism (ELM) -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">Dec 2021 – Jan 2023</div>
-                        <div class="timeline-content card">
-                            <h3>Control Specialist</h3>
-                            <h4>Ministry of Tourism (via Emdad Al Khebrat – ELM)</h4>
+                    <div class="tl-item anim">
+                        <div class="tl-marker">
+                            <div class="tl-icon"><i class="fas fa-satellite-dish"></i></div>
+                            <div class="tl-line"></div>
+                        </div>
+                        <div class="tl-card glass-card">
+                            <div class="tl-meta">
+                                <span class="tl-date" data-en="Dec 2021 – Jan 2023" data-ar="ديسمبر ٢٠٢١ – يناير ٢٠٢٣">Dec 2021 – Jan 2023</span>
+                                <span class="tl-badge" data-en="Control" data-ar="رقابة">Control</span>
+                            </div>
+                            <h3 data-en="Control Specialist" data-ar="أخصائي رقابة">Control Specialist</h3>
+                            <h4 data-en="Ministry of Tourism (via Emdad Al Khebrat – ELM)" data-ar="وزارة السياحة (عبر إمداد الخبرات – ELM)">Ministry of Tourism (via Emdad Al Khebrat – ELM)</h4>
                             <ul>
-                                <li>Oversaw field operations ensuring regulatory compliance.</li>
-                                <li>Introduced GPS-based digital tracking for streamlined field tasks.</li>
-                                <li>Acted as liaison for new policies and inspector training.</li>
+                                <li data-en="Oversaw field operations ensuring regulatory compliance." data-ar="أشرف على العمليات الميدانية وضمان الامتثال التنظيمي.">Oversaw field operations ensuring regulatory compliance.</li>
+                                <li data-en="Introduced GPS-based digital tracking for streamlined field tasks." data-ar="أدخل تتبعاً رقمياً يعتمد GPS لتبسيط المهام الميدانية.">Introduced GPS-based digital tracking for streamlined field tasks.</li>
+                                <li data-en="Acted as liaison for new policies and inspector training." data-ar="عمل حلقة وصل للسياسات الجديدة وتدريب المفتشين.">Acted as liaison for new policies and inspector training.</li>
                             </ul>
                         </div>
                     </div>
 
-                     <!-- Ministry of Tourism (TUV) - First Role -->
-                     <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">Feb 2020 – Feb 2021</div>
-                        <div class="timeline-content card">
-                            <h3>Quality Inspector</h3>
-                            <h4>Ministry of Tourism (via TÜV Rheinland)</h4>
+                    <div class="tl-item anim">
+                        <div class="tl-marker">
+                            <div class="tl-icon"><i class="fas fa-clipboard-check"></i></div>
+                        </div>
+                        <div class="tl-card glass-card">
+                            <div class="tl-meta">
+                                <span class="tl-date" data-en="Feb 2020 – Feb 2021" data-ar="فبراير ٢٠٢٠ – فبراير ٢٠٢١">Feb 2020 – Feb 2021</span>
+                                <span class="tl-badge" data-en="Inspection" data-ar="تفتيش">Inspection</span>
+                            </div>
+                            <h3 data-en="Quality Inspector" data-ar="مفتش جودة">Quality Inspector</h3>
+                            <h4 data-en="Ministry of Tourism (via TÜV Rheinland)" data-ar="وزارة السياحة (عبر TÜV Rheinland)">Ministry of Tourism (via TÜV Rheinland)</h4>
                             <ul>
-                                <li>One of the first field inspectors for the national tourism quality program in Aseer.</li>
-                                <li>Conducted detailed evaluations of tourism facilities.</li>
-                                <li>Collaborated in rolling out tourism modernization initiatives.</li>
+                                <li data-en="One of the first field inspectors for the national tourism quality program in Aseer." data-ar="أحد أوائل المفتشين الميدانيين لبرنامج الجودة السياحي الوطني في عسير.">One of the first field inspectors for the national tourism quality program in Aseer.</li>
+                                <li data-en="Conducted detailed evaluations of tourism facilities." data-ar="أجرى تقييمات تفصيلية للمرافق السياحية.">Conducted detailed evaluations of tourism facilities.</li>
+                                <li data-en="Collaborated in rolling out tourism modernization initiatives." data-ar="شارك في إطلاق مبادرات تحديث السياحة.">Collaborated in rolling out tourism modernization initiatives.</li>
                             </ul>
                         </div>
                     </div>
@@ -148,124 +289,205 @@
             </div>
         </section>
 
+        <!-- ═══════════════ PROJECTS ═══════════════ -->
         <section id="projects">
             <div class="container">
-                <h2 class="section-title">Key <span class="highlight">Projects</span></h2>
+                <div class="section-header">
+                    <span class="section-tag" data-en="03 — Projects" data-ar="٠٣ — المشاريع">03 — Projects</span>
+                    <h2 class="section-title">
+                        <span data-en="Key " data-ar="">Key </span><span class="gold" data-en="Projects" data-ar="المشاريع الرئيسية">Projects</span>
+                    </h2>
+                </div>
                 <div class="projects-grid">
-                    <div class="project-card card">
-                        <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                        <h3>Tourism Inspector Training Program</h3>
-                        <p>Designed and led a national training initiative for Ministry of Tourism inspectors using a personalized, data-driven approach.</p>
+
+                    <div class="proj-card glass-card anim">
+                        <span class="proj-num">01</span>
+                        <div class="proj-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <h3 data-en="Tourism Inspector Training Program" data-ar="برنامج تدريب مفتشي السياحة">Tourism Inspector Training Program</h3>
+                        <p data-en="Designed and led a national training initiative for Ministry of Tourism inspectors using a personalized, data-driven approach." data-ar="صمّم وقاد مبادرة تدريبية وطنية لمفتشي وزارة السياحة باستخدام نهج شخصي قائم على البيانات.">Designed and led a national training initiative for Ministry of Tourism inspectors using a personalized, data-driven approach.</p>
+                        <div class="proj-tags"><span>Training</span><span>Government</span></div>
                     </div>
-                    <div class="project-card card">
-                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                        <h3>Ajaweed 3: Bottleneck Initiative</h3>
-                        <p>Spearheaded media tracking and evaluation system. Developed dashboards and synthesized field data into actionable insights.</p>
+
+                    <div class="proj-card glass-card anim">
+                        <span class="proj-num">02</span>
+                        <div class="proj-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3 data-en="Ajaweed 3: Bottleneck Initiative" data-ar="أجودة ٣: مبادرة عنق الزجاجة">Ajaweed 3: Bottleneck Initiative</h3>
+                        <p data-en="Spearheaded media tracking and evaluation system. Developed dashboards and synthesized field data into actionable insights." data-ar="قاد نظام تتبع وتقييم إعلامي. طوّر لوحات بيانات وحوّل البيانات الميدانية إلى رؤى قابلة للتنفيذ.">Spearheaded media tracking and evaluation system. Developed dashboards and synthesized field data into actionable insights.</p>
+                        <div class="proj-tags"><span>Analytics</span><span>Media</span></div>
                     </div>
-                    <div class="project-card card">
-                        <div class="card-icon"><i class="fas fa-network-wired"></i></div>
-                        <h3>ERP-Driven Operations</h3>
-                        <p>Architected smart business workflows using ERP platforms (Daftara) for a commercial laundromat and regional cooperative.</p>
+
+                    <div class="proj-card glass-card anim">
+                        <span class="proj-num">03</span>
+                        <div class="proj-icon"><i class="fas fa-network-wired"></i></div>
+                        <h3 data-en="ERP-Driven Operations" data-ar="العمليات المدعومة بـ ERP">ERP-Driven Operations</h3>
+                        <p data-en="Architected smart business workflows using ERP platforms (Daftara) for a commercial laundromat and regional cooperative." data-ar="صمّم سير عمل تجاري ذكي باستخدام منصات ERP (دفترة) لمغسلة تجارية وتعاونية إقليمية.">Architected smart business workflows using ERP platforms (Daftara) for a commercial laundromat and regional cooperative.</p>
+                        <div class="proj-tags"><span>ERP</span><span>Operations</span></div>
                     </div>
-                    <div class="project-card card">
-                        <div class="card-icon"><i class="fas fa-id-card"></i></div>
-                        <h3>Smart Membership Cards</h3>
-                        <p>Designed NFC, QR, and barcode-enabled cards integrating identity, access, and digital governance features.</p>
+
+                    <div class="proj-card glass-card anim">
+                        <span class="proj-num">04</span>
+                        <div class="proj-icon"><i class="fas fa-id-card"></i></div>
+                        <h3 data-en="Smart Membership Cards" data-ar="بطاقات العضوية الذكية">Smart Membership Cards</h3>
+                        <p data-en="Designed NFC, QR, and barcode-enabled cards integrating identity, access, and digital governance features." data-ar="صمّم بطاقات تدعم NFC وQR والباركود تجمع بين الهوية والوصول وميزات الحوكمة الرقمية.">Designed NFC, QR, and barcode-enabled cards integrating identity, access, and digital governance features.</p>
+                        <div class="proj-tags"><span>NFC</span><span>Digital ID</span></div>
                     </div>
-                    <div class="project-card card">
-                        <div class="card-icon"><i class="fas fa-vr-cardboard"></i></div>
-                        <h3>Ghadah – Virtual World (Unreal Engine)</h3>
-                        <p>Award-nominated VR experience for the Museums Commission, combining diverse aesthetics and regional storytelling.</p>
+
+                    <div class="proj-card glass-card anim proj-featured">
+                        <span class="proj-num">05</span>
+                        <div class="proj-icon"><i class="fas fa-vr-cardboard"></i></div>
+                        <h3 data-en="Ghadah – Virtual World" data-ar="غادة – العالم الافتراضي">Ghadah – Virtual World</h3>
+                        <p data-en="Award-nominated VR experience for the Museums Commission, combining diverse aesthetics and regional storytelling in Unreal Engine." data-ar="تجربة واقع افتراضي مرشحة للجوائز لهيئة المتاحف، تجمع جمالية متنوعة وسرداً إقليمياً في Unreal Engine.">Award-nominated VR experience for the Museums Commission, combining diverse aesthetics and regional storytelling in Unreal Engine.</p>
+                        <div class="proj-tags"><span>Unreal Engine</span><span>VR / AR</span><span class="tag-award">🏆 Award-Nominated</span></div>
                     </div>
-                    <div class="project-card card">
-                        <div class="card-icon"><i class="fas fa-seedling"></i></div>
-                        <h3>SeedLTech – Coffee Innovation</h3>
-                        <p>Rural-tech initiative combining coffee seedling traceability with UV-leaf scanning and mixed reality interfaces.</p>
+
+                    <div class="proj-card glass-card anim">
+                        <span class="proj-num">06</span>
+                        <div class="proj-icon"><i class="fas fa-seedling"></i></div>
+                        <h3 data-en="SeedLTech – Coffee Innovation" data-ar="SeedLTech – ابتكار القهوة">SeedLTech – Coffee Innovation</h3>
+                        <p data-en="Rural-tech initiative combining coffee seedling traceability with UV-leaf scanning and mixed reality interfaces." data-ar="مبادرة تقنية ريفية تجمع تتبع شتلات القهوة مع فحص الأوراق بالأشعة فوق البنفسجية وواجهات الواقع المختلط.">Rural-tech initiative combining coffee seedling traceability with UV-leaf scanning and mixed reality interfaces.</p>
+                        <div class="proj-tags"><span>AgriTech</span><span>Mixed Reality</span></div>
                     </div>
+
                 </div>
             </div>
         </section>
 
+        <!-- ═══════════════ SKILLS ═══════════════ -->
         <section id="skills">
             <div class="container">
-                <h2 class="section-title">Expertise & <span class="highlight">Credentials</span></h2>
-                
-                <div class="skills-wrapper">
-                    <div class="skills-category">
-                        <h3>Core Competencies</h3>
-                        <div class="tags">
-                            <span>Project Management</span>
-                            <span>Digital Transformation</span>
-                            <span>Quality Assurance</span>
-                            <span>ERP & Data Systems</span>
-                            <span>AI & Unreal Engine</span>
-                            <span>Governance & Compliance</span>
-                            <span>Strategic Planning</span>
+                <div class="section-header">
+                    <span class="section-tag" data-en="04 — Skills" data-ar="٠٤ — المهارات">04 — Skills</span>
+                    <h2 class="section-title">
+                        <span data-en="Expertise &amp; " data-ar="الخبرات ">Expertise &amp; </span><span class="gold" data-en="Credentials" data-ar="والمؤهلات">Credentials</span>
+                    </h2>
+                </div>
+                <div class="skills-layout">
+                    <div class="skills-competencies anim">
+                        <h3 class="skills-cat-title" data-en="Core Competencies" data-ar="الكفاءات الأساسية">Core Competencies</h3>
+                        <div class="competency-grid">
+                            <div class="comp-item"><div class="comp-icon"><i class="fas fa-list-check"></i></div><span data-en="Project Management" data-ar="إدارة المشاريع">Project Management</span></div>
+                            <div class="comp-item"><div class="comp-icon"><i class="fas fa-microchip"></i></div><span data-en="Digital Transformation" data-ar="التحول الرقمي">Digital Transformation</span></div>
+                            <div class="comp-item"><div class="comp-icon"><i class="fas fa-circle-check"></i></div><span data-en="Quality Assurance" data-ar="ضمان الجودة">Quality Assurance</span></div>
+                            <div class="comp-item"><div class="comp-icon"><i class="fas fa-database"></i></div><span data-en="ERP &amp; Data Systems" data-ar="أنظمة ERP والبيانات">ERP &amp; Data Systems</span></div>
+                            <div class="comp-item"><div class="comp-icon"><i class="fas fa-robot"></i></div><span data-en="AI &amp; Unreal Engine" data-ar="الذكاء الاصطناعي وUnreal">AI &amp; Unreal Engine</span></div>
+                            <div class="comp-item"><div class="comp-icon"><i class="fas fa-scale-balanced"></i></div><span data-en="Governance &amp; Compliance" data-ar="الحوكمة والامتثال">Governance &amp; Compliance</span></div>
+                            <div class="comp-item"><div class="comp-icon"><i class="fas fa-chess"></i></div><span data-en="Strategic Planning" data-ar="التخطيط الاستراتيجي">Strategic Planning</span></div>
                         </div>
                     </div>
-
-                    <div class="skills-category">
-                        <h3>Certifications</h3>
-                        <ul class="cert-list">
-                            <li><i class="fas fa-certificate"></i> PMP® – Project Management Professional</li>
-                            <li><i class="fas fa-certificate"></i> IRCA Certified Lead Auditor (ISO 9001:2015)</li>
-                            <li><i class="fas fa-certificate"></i> Python Programming (Saudi Digital Academy)</li>
-                            <li><i class="fas fa-certificate"></i> AI & Machine Learning (King Khalid University)</li>
-                            <li><i class="fas fa-certificate"></i> VR/AR/MR Technologies (Applied Tech Series)</li>
-                        </ul>
+                    <div class="skills-certs anim">
+                        <h3 class="skills-cat-title" data-en="Certifications" data-ar="الشهادات المهنية">Certifications</h3>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <div class="cert-badge"><i class="fas fa-certificate"></i></div>
+                                <div class="cert-body">
+                                    <span class="cert-name" data-en="PMP® – Project Management Professional" data-ar="PMP® – محترف إدارة المشاريع">PMP® – Project Management Professional</span>
+                                    <span class="cert-from">PMI</span>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <div class="cert-badge"><i class="fas fa-shield-alt"></i></div>
+                                <div class="cert-body">
+                                    <span class="cert-name" data-en="IRCA Certified Lead Auditor (ISO 9001:2015)" data-ar="مدقق رائد معتمد IRCA (ISO 9001:2015)">IRCA Certified Lead Auditor (ISO 9001:2015)</span>
+                                    <span class="cert-from">IRCA</span>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <div class="cert-badge"><i class="fas fa-code"></i></div>
+                                <div class="cert-body">
+                                    <span class="cert-name" data-en="Python Programming" data-ar="برمجة Python">Python Programming</span>
+                                    <span class="cert-from" data-en="Saudi Digital Academy" data-ar="الأكاديمية الرقمية السعودية">Saudi Digital Academy</span>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <div class="cert-badge"><i class="fas fa-brain"></i></div>
+                                <div class="cert-body">
+                                    <span class="cert-name" data-en="AI &amp; Machine Learning" data-ar="الذكاء الاصطناعي وتعلم الآلة">AI &amp; Machine Learning</span>
+                                    <span class="cert-from" data-en="King Khalid University" data-ar="جامعة الملك خالد">King Khalid University</span>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <div class="cert-badge"><i class="fas fa-vr-cardboard"></i></div>
+                                <div class="cert-body">
+                                    <span class="cert-name" data-en="VR / AR / MR Technologies" data-ar="تقنيات الواقع الافتراضي والمعزز والمختلط">VR / AR / MR Technologies</span>
+                                    <span class="cert-from" data-en="Applied Tech Series" data-ar="سلسلة التقنية التطبيقية">Applied Tech Series</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- ═══════════════ EDUCATION ═══════════════ -->
         <section id="education">
             <div class="container">
-                <h2 class="section-title">Education</h2>
-                <div class="education-grid">
-                    <div class="edu-card card">
-                        <h3>BS Information Technology</h3>
-                        <p class="edu-place">Saudi Electronic University</p>
-                        <span class="edu-date">In Progress</span>
+                <div class="section-header">
+                    <span class="section-tag" data-en="05 — Education" data-ar="٠٥ — التعليم">05 — Education</span>
+                    <h2 class="section-title">
+                        <span class="gold" data-en="Education" data-ar="التعليم">Education</span>
+                    </h2>
+                </div>
+                <div class="edu-grid">
+                    <div class="edu-card glass-card anim">
+                        <div class="edu-icon"><i class="fas fa-laptop-code"></i></div>
+                        <span class="edu-status status-progress" data-en="In Progress" data-ar="جاري التعلم">In Progress</span>
+                        <h3 data-en="BS Information Technology" data-ar="بكالوريوس تقنية المعلومات">BS Information Technology</h3>
+                        <p data-en="Saudi Electronic University" data-ar="الجامعة السعودية الإلكترونية">Saudi Electronic University</p>
                     </div>
-                    <div class="edu-card card">
-                        <h3>BA Communications & Media</h3>
-                        <p class="edu-place">King Khalid University</p>
-                        <span class="edu-date">Class of 2018</span>
+                    <div class="edu-card glass-card anim">
+                        <div class="edu-icon"><i class="fas fa-broadcast-tower"></i></div>
+                        <span class="edu-status" data-en="Class of 2018" data-ar="دفعة ٢٠١٨">Class of 2018</span>
+                        <h3 data-en="BA Communications &amp; Media" data-ar="بكالوريوس الاتصالات والإعلام">BA Communications &amp; Media</h3>
+                        <p data-en="King Khalid University" data-ar="جامعة الملك خالد">King Khalid University</p>
                     </div>
-                    <div class="edu-card card">
-                        <h3>Higher Diploma Civil Tech</h3>
-                        <p class="edu-place">Technical College - Abha</p>
-                        <span class="edu-date">Class of 2014</span>
+                    <div class="edu-card glass-card anim">
+                        <div class="edu-icon"><i class="fas fa-hard-hat"></i></div>
+                        <span class="edu-status" data-en="Class of 2014" data-ar="دفعة ٢٠١٤">Class of 2014</span>
+                        <h3 data-en="Higher Diploma Civil Tech" data-ar="دبلوم عالٍ – تقنية مدنية">Higher Diploma Civil Tech</h3>
+                        <p data-en="Technical College – Abha" data-ar="الكلية التقنية – أبها">Technical College – Abha</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <footer id="contact">
-            <div class="container">
-                <h2>Let's <span class="highlight">Connect</span></h2>
-                <p>Ready to transform your vision into reality?</p>
-                <div class="contact-links">
-                    <a href="mailto:s@i3j.io" class="contact-item">
-                        <i class="fas fa-envelope"></i> s@i3j.io 
+    </main>
+
+    <!-- ═══════════════ FOOTER / CONTACT ═══════════════ -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-headline">
+                    <h2><span data-en="Let's " data-ar="لنتواصل">Let's </span><span class="gold" data-en="Connect" data-ar="">Connect</span></h2>
+                    <p data-en="Ready to transform your vision into reality?" data-ar="مستعد لتحويل رؤيتك إلى واقع؟">Ready to transform your vision into reality?</p>
+                </div>
+                <div class="footer-contacts">
+                    <a href="mailto:s@i3j.io" class="footer-contact-item">
+                        <div class="fc-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="fc-body">
+                            <span class="fc-label" data-en="Email" data-ar="البريد الإلكتروني">Email</span>
+                            <span class="fc-value">s@i3j.io</span>
+                        </div>
                     </a>
-                    <a href="tel:+966506090612" class="contact-item">
-                        <i class="fas fa-phone"></i> +966 506090612
+                    <a href="tel:+966506090612" class="footer-contact-item">
+                        <div class="fc-icon"><i class="fas fa-phone"></i></div>
+                        <div class="fc-body">
+                            <span class="fc-label" data-en="Phone" data-ar="الهاتف">Phone</span>
+                            <span class="fc-value">+966 506 090 612</span>
+                        </div>
                     </a>
-                    <a href="https://www.linkedin.com/in/saeedj" target="_blank" class="contact-item">
-                        <i class="fab fa-linkedin"></i> LinkedIn Profile
+                    <a href="https://www.linkedin.com/in/saeedj" target="_blank" rel="noopener" class="footer-contact-item">
+                        <div class="fc-icon"><i class="fab fa-linkedin"></i></div>
+                        <div class="fc-body">
+                            <span class="fc-label">LinkedIn</span>
+                            <span class="fc-value" data-en="View Profile" data-ar="عرض الملف الشخصي">View Profile</span>
+                        </div>
                     </a>
                 </div>
-                <p class="copyright">&copy; 2026 Saeed Ahmad Jahash. All Rights Reserved.</p>
+                <p class="copyright">&copy; 2026 Saeed Ahmad Jahash &mdash; <span data-en="All Rights Reserved" data-ar="جميع الحقوق محفوظة">All Rights Reserved</span></p>
             </div>
-        </footer>
-    </main>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
