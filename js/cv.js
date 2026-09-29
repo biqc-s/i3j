@@ -1,6 +1,6 @@
 /* ════════════════════════════════════════════════════════════
    ATS CV RENDERER
-   Builds a single-column, text-only résumé from data/profile.js.
+   Builds a single-column, text-only résumé from data/content/*.json.
    ATS rules followed: standard section headings, real text (no images/icons),
    no tables or columns, bullet lists, consistent dates with Western digits,
    contact details as plain text in the body (not in page headers/footers).
@@ -13,9 +13,9 @@
 (function () {
     'use strict';
 
-    const { t, esc, plain, visible, formatRange, detectLang, saveLang } = window.Core;
-    const P  = window.PROFILE;
+    const { t, esc, plain, visible, formatRange, formatMonth, detectLang, saveLang, loadContent } = window.Core;
     const UI = window.UI;
+    let P = window.PROFILE || {}; // refreshed from the loaded content on every build()
 
     /* ── Section builders ── */
 
@@ -72,6 +72,15 @@
         }).join('');
     }
 
+    function achievements(lang) {
+        const items = visible(P.achievements, 'cv').map(a => {
+            const meta = [t(a.issuer, lang), a.date ? formatMonth(a.date, lang) : ''].filter(Boolean).join(', ');
+            const desc = plain(t(a.description, lang));
+            return `<li><strong>${esc(t(a.title, lang))}</strong>${meta ? ` — ${esc(meta)}` : ''}${desc ? `. ${esc(desc)}` : ''}</li>`;
+        });
+        return items.length ? `<ul>${items.join('')}</ul>` : '';
+    }
+
     function education(lang) {
         return visible(P.education, 'cv').map(ed => {
             const when = ed.inProgress ? t(UI.labels.inProgress, lang) : (ed.year ? String(ed.year) : '');
@@ -102,6 +111,7 @@
 
     /* ── Public: full CV markup ── */
     function build(lang) {
+        P = window.PROFILE || {};
         const dir = lang === 'ar' ? 'rtl' : 'ltr';
         const skills = visible(P.competencies, 'cv').map(c => t(c.name, lang));
         const tools  = (P.tools || []).map(x => t(x, lang));
@@ -117,6 +127,7 @@
             ${section('skills', lang, inlineList(skills))}
             ${section('experience', lang, experience(lang))}
             ${section('projects', lang, projects(lang))}
+            ${section('achievements', lang, achievements(lang))}
             ${section('education', lang, education(lang))}
             ${section('certifications', lang, certifications(lang))}
             ${section('tools', lang, inlineList(tools))}
@@ -232,12 +243,15 @@
             } catch (_) { /* clipboard unavailable — ignore */ }
         });
 
-        render();
-
+        loadContent().then(render).catch(err => {
+            mount.innerHTML = `<p style="color:#b00">Could not load CV content (${esc(err.message)}).</p>`;
+            return Promise.reject(err);
+        }).then(() => {
         if (params.get('print') === '1') {
             const go = () => setTimeout(() => window.print(), 250);
             (document.fonts && document.fonts.ready) ? document.fonts.ready.then(go) : go();
         }
+        });
     }
 
     window.CV = { build, print, bindBrowserPrint, initPage, fileTitle };

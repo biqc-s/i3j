@@ -1,0 +1,147 @@
+{
+  "competencies": [
+    {
+      "icon": "fa-list-check",
+      "name": {
+        "en": "Project Management",
+        "ar": "إدارة المشاريع"
+      }
+    },
+    {
+      "icon": "fa-microchip",
+      "name": {
+        "en": "Digital Transformation",
+        "ar": "التحول الرقمي"
+      }
+    },
+    {
+      "icon": "fa-circle-check",
+      "name": {
+        "en": "Quality Assurance",
+        "ar": "ضمان الجودة"
+      }
+    },
+    {
+      "icon": "fa-database",
+      "name": {
+        "en": "ERP & Data Systems",
+        "ar": "أنظمة ERP والبيانات"
+      }
+    },
+    {
+      "icon": "fa-robot",
+      "name": {
+        "en": "AI & Unreal Engine",
+        "ar": "الذكاء الاصطناعي وUnreal Engine"
+      }
+    },
+    {
+      "icon": "fa-scale-balanced",
+      "name": {
+        "en": "Governance & Compliance",
+        "ar": "الحوكمة والامتثال"
+      }
+    },
+    {
+      "icon": "fa-chess",
+      "name": {
+        "en": "Strategic Planning",
+        "ar": "التخطيط الاستراتيجي"
+      }
+    }
+  ],
+  "tools": [
+    "Risk Management",
+    "Internal Auditing",
+    "FMEA",
+    "SPC",
+    "HACCP",
+    "ERP (Daftra)",
+    "Data Visualization",
+    "Dashboards",
+    "Python",
+    "Unreal Engine",
+    "VR / AR / MR",
+    "NFC / QR / Barcode Systems",
+    "B2B Sales",
+    "Stakeholder Management",
+    "Training & Development"
+  ],
+  "certifications": [
+    {
+      "icon": "fa-certificate",
+      "name": {
+        "en": "PMP® – Project Management Professional",
+        "ar": "PMP® – محترف إدارة المشاريع"
+      },
+      "issuer": {
+        "en": "PMI",
+        "ar": "PMI"
+      },
+      "year": "",
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    },
+    {
+      "icon": "fa-shield-alt",
+      "name": {
+        "en": "IRCA Certified Lead Auditor (ISO 9001:2015)",
+        "ar": "مدقق رئيسي معتمد من IRCA (ISO 9001:2015)"
+      },
+      "issuer": {
+        "en": "IRCA",
+        "ar": "IRCA"
+      },
+      "year": "",
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    },
+    {
+      "icon": "fa-code",
+      "name": {
+        "en": "Python Programming",
+        "ar": "البرمجة بلغة Python"
+      },
+      "issuer": {
+        "en": "Saudi Digital Academy",
+        "ar": "الأكاديمية الرقمية السعودية"
+      },
+      "year": "",
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    },
+    {
+      "icon": "fa-brain",
+      "name": {
+        "en": "AI & Machine Learning",
+        "ar": "الذكاء الاصطناعي وتعلم الآلة"
+      },
+      "issuer": {
+        "en": "King Khalid University",
+        "ar": "جامعة الملك خالد"
+      },
+      "year": "",
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    },
+    {
+      "icon": "fa-vr-cardboard",
+      "name": {
+        "en": "VR / AR / MR Technologies",
+        "ar": "تقنيات الواقع الافتراضي والمعزز والمختلط"
+      },
+      "issuer": {
+        "en": "Applied Tech Series",
+        "ar": "سلسلة التقنية التطبيقية"
+      },
+      "year": "",
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "person": {
+    "name": {
+      "en": "Saeed Ahmad Jahash",
+      "ar": "سعيد أحمد جهاش"
+    },
+    "initials": "SJ",
+    "headline": {
+      "en": "Chief Executive Officer | PMP® | ISO 9001 Lead Auditor | Digital Transformation",
+      "ar": "رئيس تنفيذي | PMP® | مدقق رئيسي ISO 9001 | التحول الرقمي"
+    },
+    "location": {
+      "en": "Saudi Arabia",
+      "ar": "المملكة العربية السعودية"
+    },
+    "email": "s@i3j.io",
+    "phone": "+966506090612",
+    "phoneDisplay": "+966 50 609 0612",
+    "linkedin": "https://www.linkedin.com/in/saeedj",
+    "website": "https://i3j.io",
+    "available": true,
+    "photo": ""
+  },
+  "summary": {
+    "en": "Transformational executive and PMP®-certified project leader with dual degrees in Media and Information Technology and an IRCA-certified ISO 9001:2015 Lead Auditor credential. Proven record leading cooperative operations as CEO, driving ERP-based digital transformation, and delivering quality, risk and compliance programs for the Ministry of Tourism aligned with Vision 2030. Skilled in governance, strategic planning, data visualization, AI and Unreal Engine, turning complex data into actionable strategies.",
+    "ar": "قائد تنفيذي تحويلي ومدير مشاريع معتمد PMP® يحمل شهادتين في الإعلام وتقنية المعلومات، ومدقق رئيسي معتمد من IRCA في ISO 9001:2015. سجل مثبت في قيادة عمليات الجمعيات التعاونية كرئيس تنفيذي، وقيادة التحول الرقمي القائم على أنظمة ERP، وتنفيذ برامج الجودة والمخاطر والامتثال لوزارة السياحة بما يتوافق مع رؤية 2030. متمكن في الحوكمة والتخطيط الاستراتيجي وتصوير البيانات والذكاء الاصطناعي وUnreal Engine لتحويل البيانات المعقدة إلى استراتيجيات قابلة للتنفيذ."
+  },
+  "titles": [
+    {
+      "en": "Transformational Leader",
+      "ar": "قائد تحويلي"
+    },
+    {
+      "en": "CEO & Strategist",
+      "ar": "رئيس تنفيذي واستراتيجي"
+    },
+    {
+      "en": "PMP® Certified",
+      "ar": "معتمد PMP®"
+    },
+    {
+      "en": "ISO 9001 Lead Auditor",
+      "ar": "مدقق رئيسي ISO 9001"
+    },
+    {
+      "en": "Digital Innovator",
+      "ar": "مبتكر رقمي"
+    }
+  ],
+  "stats": [
+    {
+      "value": "5",
+      "auto": "",
+      "suffix": "+",
+      "label": {
+        "en": "Years",
+        "ar": "سنوات"
+      }
+    },
+    {
+      "value": "",
+      "auto": "projects",
+      "suffix": "+",
+      "label": {
+        "en": "Projects",
+        "ar": "مشاريع"
+      }
+    },
+    {
+      "value": "",
+      "auto": "certifications",
+      "suffix": "",
+      "label": {
+        "en": "Certifications",
+        "ar": "شهادات"
+      }
+    }
+  ],
+  "badges": [
+    {
+      "icon": "fa-certificate",
+      "text": "PMP®"
+    },
+    {
+      "icon": "fa-shield-alt",
+      "text": "ISO 9001"
+    },
+    {
+      "icon": "fa-robot",
+      "text": "AI / ML"
+    }
+  ],
+  "about": [
+    {
+      "en": "I am a transformational leader with a unique blend of technical mastery and strategic vision. Holding dual degrees in <strong>Media</strong> and <strong>Information Technology</strong>, I bridge the gap between digital innovation and institutional excellence.",
+      "ar": "أنا قائد تحويلي يجمع بين الإتقان التقني والرؤية الاستراتيجية. أحمل شهادتين في <strong>الإعلام</strong> و<strong>تقنية المعلومات</strong>، وأجسّر الفجوة بين الابتكار الرقمي والتميز المؤسسي."
+    },
+    {
+      "en": "My journey is defined by a commitment to quality and efficiency. From leading smart inspection systems across public sectors to governing agricultural cooperatives, I leverage <strong>AI, Data Visualization, and Unreal Engine</strong> to turn complex data into actionable strategies.",
+      "ar": "رحلتي محددة بالالتزام بالجودة والكفاءة. من قيادة أنظمة التفتيش الذكية عبر القطاعات العامة إلى إدارة التعاونيات الزراعية، أستثمر <strong>الذكاء الاصطناعي وتصور البيانات وUnreal Engine</strong> لتحويل البيانات المعقدة إلى استراتيجيات قابلة للتنفيذ."
+    },
+    {
+      "en": "Driven by the vision of <strong>Digital Leadership</strong>, I build tools that enhance transparency, empower communities, and align with national transformation goals.",
+      "ar": "مدفوعاً برؤية <strong>القيادة الرقمية</strong>، أبني أدوات تعزز الشفافية وتمكّن المجتمعات وتتوافق مع أهداف التحول الوطني."
+    }
+  ],
+  "highlights": [
+    {
+      "icon": "fa-rocket",
+      "title": {
+        "en": "Digital Pioneer",
+        "ar": "رائد رقمي"
+      },
+      "text": {
+        "en": "Bridging tech & strategy",
+        "ar": "جسر بين التقنية والاستراتيجية"
+      }
+    },
+    {
+      "icon": "fa-vr-cardboard",
+      "title": {
+        "en": "VR / AR Creator",
+        "ar": "مبدع الواقع الافتراضي"
+      },
+      "text": {
+        "en": "Unreal Engine & Mixed Reality",
+        "ar": "Unreal Engine والواقع المختلط"
+      }
+    },
+    {
+      "icon": "fa-sitemap",
+      "title": {
+        "en": "Data Architect",
+        "ar": "مهندس البيانات"
+      },
+      "text": {
+        "en": "AI & Data Visualization",
+        "ar": "الذكاء الاصطناعي وتصور البيانات"
+      }
+    },
+    {
+      "icon": "fa-award",
+      "title": {
+        "en": "Quality Leader",
+        "ar": "قائد الجودة"
+      },
+      "text": {
+        "en": "ISO 9001 & PMP Certified",
+        "ar": "معتمد ISO 9001 و PMP"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "name": {
+        "en": "Arabic",
+        "ar": "العربية"
+      },
+      "level": {
+        "en": "Native",
+        "ar": "اللغة الأم"
+      }
+    },
+    {
+      "name": {
+        "en": "English",
+        "ar": "الإنجليزية"
+      },
+      "level": {
+        "en": "Professional working proficiency",
+        "ar": "إجادة مهنية"
+      }
+    }
+  ]
+}

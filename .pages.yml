@@ -1,0 +1,283 @@
+# ════════════════════════════════════════════════════════════
+# لوحة التحكم — Pages CMS (https://app.pagescms.org)
+# هذا الملف يعرّف النماذج التي تظهر لك في لوحة التحكم.
+# كل حفظ من اللوحة = commit في المستودع → فحص تلقائي → نشر خلال دقيقة تقريباً.
+# ════════════════════════════════════════════════════════════
+
+media:
+  input: images          # مجلد الصور في المستودع
+  output: images         # المسار الذي يُكتب في البيانات ويقرؤه الموقع
+  categories: [image]
+  rename: safe           # أسماء ملفات آمنة للروابط
+
+settings:
+  content:
+    merge: true          # لا تحذف أي حقول إضافية موجودة في الملفات
+
+# ── قوالب حقول مشتركة (ثنائية اللغة) ──
+components:
+  bi:
+    type: object
+    label: نص قصير
+    fields:
+      - { name: en, label: English, type: string }
+      - { name: ar, label: العربية, type: string }
+  bi_required:
+    type: object
+    label: نص قصير
+    fields:
+      - { name: en, label: English, type: string, required: true }
+      - { name: ar, label: العربية, type: string, required: true }
+  bi_text:
+    type: object
+    label: نص طويل
+    fields:
+      - { name: en, label: English, type: text }
+      - { name: ar, label: العربية, type: text }
+  icon:
+    type: string
+    label: الأيقونة
+    description: "اسم أيقونة من fontawesome.com/icons مثل fa-trophy أو fa-rocket"
+  yearmonth:
+    type: string
+    pattern:
+      regex: '^(\d{4}-(0[1-9]|1[0-2]))?$'
+      message: "الصيغة YYYY-MM مثل 2024-04"
+  hide_cv:
+    type: boolean
+    label: إخفاء من السيرة الذاتية
+    default: false
+  hide_site:
+    type: boolean
+    label: إخفاء من الموقع
+    default: false
+
+content:
+  # ═══════════════ الملف الشخصي ═══════════════
+  - name: profile
+    label: 👤 الملف الشخصي
+    description: الاسم، التواصل، الصورة، الملخص المهني، والواجهة
+    type: file
+    path: data/content/profile.json
+    format: json
+    fields:
+      - name: person
+        label: البيانات الشخصية
+        type: object
+        fields:
+          - { name: name, label: الاسم الكامل, component: bi_required, description: "الكلمة الأخيرة تظهر بالذهبي في الواجهة" }
+          - { name: initials, label: الأحرف الأولى, type: string, description: "تظهر في الدائرة إذا لم توجد صورة" }
+          - name: photo
+            label: الصورة الشخصية
+            type: image
+            description: "اختياري — صورة مربعة تظهر مكان الأحرف الأولى (لا تظهر في السيرة الذاتية للتوافق مع ATS)"
+          - { name: headline, label: المسمى المهني (رأس السيرة), component: bi_required }
+          - { name: location, label: الموقع, component: bi }
+          - { name: email, label: البريد الإلكتروني, type: string, required: true }
+          - { name: phone, label: رقم الهاتف (للاتصال), type: string, description: "بدون مسافات مثل +966506090612" }
+          - { name: phoneDisplay, label: رقم الهاتف (للعرض), type: string, description: "مثل +966 50 609 0612" }
+          - { name: linkedin, label: رابط LinkedIn, type: string }
+          - { name: website, label: رابط الموقع, type: string }
+          - { name: available, label: إظهار شارة "متاح للتعاون", type: boolean, default: true }
+      - name: summary
+        label: الملخص المهني (أهم فقرة في السيرة الذاتية)
+        component: bi_text
+        description: "3–4 أسطر مليئة بالكلمات المفتاحية لوظيفتك المستهدفة"
+      - name: titles
+        label: الألقاب المتحركة في الواجهة
+        component: bi
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{ar} — {en}"
+      - name: stats
+        label: الأرقام في الواجهة
+        type: object
+        list:
+          max: 4
+          collapsible:
+            collapsed: true
+            summary: "{label.ar}"
+        fields:
+          - { name: label, label: العنوان, component: bi_required }
+          - { name: value, label: القيمة (يدوياً), type: string, description: "اتركها فارغة إذا اخترت الحساب التلقائي" }
+          - name: auto
+            label: حساب تلقائي
+            type: select
+            options:
+              values:
+                - { value: years, label: سنوات الخبرة (من أول وظيفة) }
+                - { value: projects, label: عدد المشاريع }
+                - { value: certifications, label: عدد الشهادات }
+                - { value: experience, label: عدد الوظائف }
+          - { name: suffix, label: لاحقة, type: string, description: "مثل +" }
+      - name: badges
+        label: الشارات العائمة حول الصورة (حتى 3)
+        type: object
+        list:
+          max: 3
+          collapsible:
+            collapsed: true
+            summary: "{text}"
+        fields:
+          - { name: text, label: النص, type: string, required: true }
+          - { name: icon, component: icon }
+      - name: about
+        label: فقرات "من أنا"
+        component: bi_text
+        description: "يمكنك استخدام <strong>نص</strong> لتمييز كلمات بالذهبي"
+        list:
+          collapsible:
+            collapsed: true
+            summary: "فقرة {index}"
+      - name: highlights
+        label: بطاقات التميز بجانب "من أنا"
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title.ar}"
+        fields:
+          - { name: icon, component: icon }
+          - { name: title, label: العنوان, component: bi_required }
+          - { name: text, label: الوصف, component: bi }
+      - name: languages
+        label: اللغات (في السيرة الذاتية)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name.ar} — {level.ar}"
+        fields:
+          - { name: name, label: اللغة, component: bi_required }
+          - { name: level, label: المستوى, component: bi_required }
+
+  # ═══════════════ الخبرات ═══════════════
+  - name: experience
+    label: 💼 الخبرات العملية
+    description: الأحدث أولاً — اسحب لإعادة الترتيب
+    type: file
+    path: data/content/experience.json
+    format: json
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{role.ar} — {org.ar} ({start})"
+    fields:
+      - { name: role, label: المسمى الوظيفي, component: bi_required }
+      - { name: org, label: جهة العمل, component: bi_required }
+      - { name: location, label: المدينة / المنطقة, component: bi }
+      - { name: start, label: تاريخ البداية, component: yearmonth, required: true }
+      - { name: end, label: تاريخ النهاية, component: yearmonth, description: "اتركه فارغاً إذا كانت وظيفتك الحالية (يظهر: حتى الآن)" }
+      - { name: tag, label: التصنيف, component: bi, description: "مثل قيادة، جودة" }
+      - { name: icon, component: icon }
+      - name: points
+        label: الإنجازات والمهام
+        component: bi_text
+        description: "ابدأ بفعل قوي وأضف أرقاماً إن أمكن (مثل: رفع الكفاءة 30%)"
+        list:
+          collapsible:
+            collapsed: false
+            summary: "{ar}"
+      - { name: hideFromCv, component: hide_cv }
+      - { name: hideFromSite, component: hide_site }
+
+  # ═══════════════ المشاريع ═══════════════
+  - name: projects
+    label: 🚀 المشاريع
+    type: file
+    path: data/content/projects.json
+    format: json
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{title.ar}"
+    fields:
+      - { name: title, label: اسم المشروع, component: bi_required }
+      - { name: description, label: الوصف, component: bi_text }
+      - { name: image, label: صورة المشروع, type: image, description: "اختياري — تظهر أعلى البطاقة ويمكن تكبيرها" }
+      - { name: icon, component: icon, description: "تظهر إذا لم توجد صورة" }
+      - { name: url, label: رابط خارجي, type: string, description: "اختياري" }
+      - { name: tags, label: الوسوم, component: bi, list: true }
+      - { name: award, label: الجائزة / الترشيح, component: bi, description: "اختياري — مثل: مرشح لجائزة" }
+      - { name: featured, label: مشروع مميز (إطار ذهبي), type: boolean, default: false }
+      - { name: hideFromCv, component: hide_cv }
+      - { name: hideFromSite, component: hide_site }
+
+  # ═══════════════ الإنجازات ═══════════════
+  - name: achievements
+    label: 🏆 الجوائز والإنجازات
+    description: جوائز، تكريمات، مشاركات، فعاليات — مع صور
+    type: file
+    path: data/content/achievements.json
+    format: json
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{title.ar} ({date})"
+    fields:
+      - { name: title, label: العنوان, component: bi_required }
+      - { name: issuer, label: الجهة المانحة / المنظِّمة, component: bi }
+      - { name: date, label: التاريخ, component: yearmonth }
+      - { name: description, label: الوصف, component: bi_text }
+      - { name: image, label: الصورة, type: image }
+      - { name: icon, component: icon, description: "تظهر إذا لم توجد صورة (الافتراضي fa-trophy)" }
+      - { name: url, label: رابط (خبر، شهادة، منشور), type: string }
+      - { name: hideFromCv, component: hide_cv }
+      - { name: hideFromSite, component: hide_site }
+
+  # ═══════════════ المهارات والشهادات ═══════════════
+  - name: skills
+    label: 🎯 المهارات والشهادات
+    type: file
+    path: data/content/skills.json
+    format: json
+    fields:
+      - name: competencies
+        label: الكفاءات الأساسية
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name.ar}"
+        fields:
+          - { name: icon, component: icon }
+          - { name: name, label: الكفاءة, component: bi_required }
+      - name: tools
+        label: المهارات التقنية (كلمات مفتاحية للسيرة الذاتية فقط)
+        type: string
+        list: true
+      - name: certifications
+        label: الشهادات المهنية
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name.ar}"
+        fields:
+          - { name: name, label: اسم الشهادة, component: bi_required }
+          - { name: issuer, label: الجهة المانحة, component: bi }
+          - { name: year, label: السنة, type: number }
+          - { name: url, label: رابط التحقق, type: string, description: "اختياري" }
+          - { name: icon, component: icon }
+          - { name: hideFromCv, component: hide_cv }
+          - { name: hideFromSite, component: hide_site }
+
+  # ═══════════════ التعليم ═══════════════
+  - name: education
+    label: 🎓 التعليم
+    type: file
+    path: data/content/education.json
+    format: json
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{degree.ar}"
+    fields:
+      - { name: degree, label: الدرجة / التخصص, component: bi_required }
+      - { name: school, label: الجامعة / الجهة, component: bi_required }
+      - { name: year, label: سنة التخرج, type: number }
+      - { name: inProgress, label: قيد الدراسة حالياً, type: boolean, default: false }
+      - { name: icon, component: icon }
+      - { name: hideFromCv, component: hide_cv }
+      - { name: hideFromSite, component: hide_site }

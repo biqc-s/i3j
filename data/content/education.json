@@ -1,0 +1,47 @@
+[
+  {
+    "icon": "fa-laptop-code",
+    "degree": {
+      "en": "B.S. Information Technology",
+      "ar": "بكالوريوس تقنية المعلومات"
+    },
+    "school": {
+      "en": "Saudi Electronic University",
+      "ar": "الجامعة السعودية الإلكترونية"
+    },
+    "year": "",
+    "inProgress": true,
+    "hideFromCv": false,
+    "hideFromSite": false
+  },
+  {
+    "icon": "fa-broadcast-tower",
+    "degree": {
+      "en": "B.A. Communications & Media",
+      "ar": "بكالوريوس الاتصال والإعلام"
+    },
+    "school": {
+      "en": "King Khalid University",
+      "ar": "جامعة الملك خالد"
+    },
+    "year": 2018,
+    "inProgress": false,
+    "hideFromCv": false,
+    "hideFromSite": false
+  },
+  {
+    "icon": "fa-hard-hat",
+    "degree": {
+      "en": "Higher Diploma in Civil Technology",
+      "ar": "دبلوم عالٍ في التقنية المدنية"
+    },
+    "school": {
+      "en": "Technical College – Abha",
+      "ar": "الكلية التقنية – أبها"
+    },
+    "year": 2014,
+    "inProgress": false,
+    "hideFromCv": false,
+    "hideFromSite": false
+  }
+]

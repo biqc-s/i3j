@@ -1263,7 +1263,7 @@ html[dir="rtl"] .cv-dropdown-up .cv-menu { transform: translateX(50%); }
 /* Current job marker */
 .tl-icon-current { box-shadow: 0 0 0 4px rgba(79,195,247,0.12); border-color: var(--cyan); color: var(--cyan); }
 
-/* Optional external link on project cards (set `url` in profile.js) */
+/* Optional external link on project cards (set from the dashboard) */
 .proj-link {
     position: absolute;
     bottom: 1.1rem;
@@ -1285,6 +1285,127 @@ html[dir="rtl"] .cv-dropdown-up .cv-menu { transform: translateX(50%); }
         transition-duration: 0.001ms !important;
     }
     .anim { opacity: 1; transform: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MEDIA: PROFILE PHOTO, CARD IMAGES, ACHIEVEMENTS, LIGHTBOX
+════════════════════════════════════════════════════════════ */
+.avatar-core.has-photo { overflow: visible; }
+.avatar-photo {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Clickable image at the top of a card */
+.card-media {
+    display: block;
+    width: calc(100% + 2 * clamp(1.4rem, 2.5vw, 2rem));
+    margin: calc(-1 * clamp(1.4rem, 2.5vw, 2rem)) calc(-1 * clamp(1.4rem, 2.5vw, 2rem)) 1.2rem;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-2);
+    overflow: hidden;
+    cursor: zoom-in;
+}
+.card-media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform var(--t-slow) var(--ease);
+}
+.glass-card:hover .card-media img { transform: scale(1.05); }
+.proj-card.has-media .proj-num { top: calc(56.25% + 0.2rem); }
+.proj-card.has-media .proj-icon { display: none; }
+
+/* Achievements */
+.ach-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.5rem;
+}
+.ach-card {
+    padding: clamp(1.4rem, 2.5vw, 2rem);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.ach-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gold-dim);
+    border: 1px solid var(--border-gold);
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-bottom: 1.1rem;
+}
+.ach-meta {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+}
+.ach-card h3 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+}
+.ach-card p:not(.ach-meta) { font-size: 0.85rem; color: var(--text-2); line-height: 1.7; }
+.ach-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--cyan);
+}
+.ach-link:hover { color: var(--gold); }
+.ach-link i { font-size: 0.7rem; }
+
+a.cert-name:hover { color: var(--gold); }
+.cert-ext { font-size: 0.65rem; opacity: 0.6; margin-inline-start: 4px; }
+
+/* Lightbox */
+.lightbox {
+    max-width: min(92vw, 1100px);
+    max-height: 92vh;
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    color: var(--text);
+    overflow: hidden;
+}
+.lightbox::backdrop { background: rgba(0,0,0,0.82); backdrop-filter: blur(6px); }
+.lightbox img { display: block; max-width: 100%; max-height: calc(92vh - 3.5rem); object-fit: contain; margin: 0 auto; }
+.lightbox p { padding: 0.9rem 1.2rem; font-size: 0.9rem; color: var(--text-2); text-align: center; }
+.lightbox p:empty { display: none; }
+.lightbox-close {
+    position: absolute;
+    top: 0.7rem;
+    inset-inline-end: 0.7rem;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border-gold);
+    background: rgba(5,5,12,0.8);
+    color: var(--gold);
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Tighter desktop nav when all sections are shown */
+@media (max-width: 1200px) and (min-width: 961px) {
+    .nav-links a { padding: 0.45rem 0.6rem; letter-spacing: 0.8px; font-size: 0.76rem; }
 }
 
 /* ════════════════════════════════════════════════════════════

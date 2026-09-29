@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 /* ════════════════════════════════════════════════════════════
-   Validates data/profile.js and data/ui.js before deployment.
+   Validates the site content before deployment.
    Usage:  node scripts/validate-profile.mjs
 
-   Checks:
-   • both files parse without syntax errors
-   • every bilingual field has non-empty `en` and `ar` values
-   • dates use the YYYY-MM format and start <= end
-   • required sections and fields exist
+   Checks data/content/*.json (edited from the Pages CMS dashboard) and data/ui.js:
+   • every file is valid JSON with the expected shape
+   • required bilingual fields have both `en` and `ar` (missing Arabic → warning)
+   • dates use YYYY-MM and start <= end
+   • every referenced image exists in the repository
 ════════════════════════════════════════════════════════════ */
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import vm from 'node:vm';
@@ -19,78 +19,140 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
 const warnings = [];
 
-function load(file) {
-    const sandbox = { window: {} };
+function readJson(name, expect) {
+    const file = `data/content/${name}.json`;
     try {
-        vm.runInNewContext(readFileSync(join(root, file), 'utf8'), sandbox, { filename: file });
+        const data = JSON.parse(readFileSync(join(root, file), 'utf8'));
+        if (expect === 'array' && !Array.isArray(data)) errors.push(`${file}: must be a list`);
+        if (expect === 'object' && (Array.isArray(data) || typeof data !== 'object' || !data)) errors.push(`${file}: must be an object`);
+        return data;
     } catch (err) {
-        errors.push(`${file}: syntax error — ${err.message}`);
+        errors.push(`${file}: ${err.code === 'ENOENT' ? 'file is missing' : 'invalid JSON — ' + err.message}`);
+        return expect === 'array' ? [] : {};
     }
-    return sandbox.window;
 }
 
-const { PROFILE } = load('data/profile.js');
-const { UI } = load('data/ui.js');
+const profile      = readJson('profile', 'object');
+const experience   = readJson('experience', 'array');
+const projects     = readJson('projects', 'array');
+const achievements = readJson('achievements', 'array');
+const skills       = readJson('skills', 'object');
+const education    = readJson('education', 'array');
 
-const isBilingual = v => v && typeof v === 'object' && !Array.isArray(v) && ('en' in v || 'ar' in v);
+const str = v => (v == null ? '' : String(v).trim());
 
-/** Walk the object tree and verify every {en, ar} pair is complete. */
-function checkBilingual(node, path) {
-    if (Array.isArray(node)) return node.forEach((v, i) => checkBilingual(v, `${path}[${i}]`));
-    if (!node || typeof node !== 'object') return;
-    if (isBilingual(node)) {
-        for (const lang of ['en', 'ar']) {
-            const v = node[lang];
-            const empty = v == null || (typeof v === 'string' && v.trim() === '' && node[lang === 'en' ? 'ar' : 'en']?.toString().trim() !== '');
-            if (v == null) errors.push(`${path}: missing "${lang}" translation`);
-            else if (empty) warnings.push(`${path}: "${lang}" is empty`);
-        }
+/** A bilingual value {en, ar}. required → English must exist; Arabic missing is a warning. */
+function bi(value, path, { required = false } = {}) {
+    if (value == null || value === '') {
+        if (required) errors.push(`${path}: is required`);
         return;
     }
-    for (const [k, v] of Object.entries(node)) checkBilingual(v, path ? `${path}.${k}` : k);
+    if (typeof value === 'string') return; // plain text is allowed (same in both languages)
+    const en = str(value.en), ar = str(value.ar);
+    if (required && !en && !ar) errors.push(`${path}: is required`);
+    else if (en && !ar) warnings.push(`${path}: Arabic translation is missing (English will be shown)`);
+    else if (!en && ar) warnings.push(`${path}: English translation is missing`);
 }
 
 const YM = /^\d{4}-(0[1-9]|1[0-2])$/;
-
-if (PROFILE) {
-    checkBilingual(PROFILE, 'PROFILE');
-
-    const required = ['person', 'experience', 'projects', 'competencies', 'certifications', 'education'];
-    required.forEach(k => { if (!PROFILE[k]) errors.push(`PROFILE.${k} is required`); });
-
-    const p = PROFILE.person || {};
-    ['name', 'headline', 'email'].forEach(k => { if (!p[k]) errors.push(`PROFILE.person.${k} is required`); });
-    if (p.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)) errors.push(`PROFILE.person.email looks invalid: ${p.email}`);
-
-    (PROFILE.experience || []).forEach((job, i) => {
-        const at = `PROFILE.experience[${i}]`;
-        if (!job.role) errors.push(`${at}.role is required`);
-        if (!job.org) errors.push(`${at}.org is required`);
-        if (!YM.test(job.start || '')) errors.push(`${at}.start must be "YYYY-MM" (got ${JSON.stringify(job.start)})`);
-        if (job.end != null && !YM.test(job.end)) errors.push(`${at}.end must be "YYYY-MM" or null (got ${JSON.stringify(job.end)})`);
-        if (YM.test(job.start || '') && YM.test(job.end || '') && job.start > job.end) errors.push(`${at}: start is after end`);
-        if (!Array.isArray(job.points) || !job.points.length) warnings.push(`${at}: no bullet points — ATS CVs work best with 2–5 achievements per role`);
-    });
-
-    const starts = (PROFILE.experience || []).map(j => j.start);
-    const sorted = [...starts].sort().reverse();
-    if (starts.join() !== sorted.join()) warnings.push('PROFILE.experience is not ordered newest → oldest');
-
-    (PROFILE.education || []).forEach((ed, i) => {
-        if (!ed.inProgress && ed.year == null) warnings.push(`PROFILE.education[${i}]: set "year" or "inProgress: true"`);
-    });
-
-    const summaryLen = (PROFILE.summary?.en || '').split(/\s+/).length;
-    if (summaryLen > 90) warnings.push(`PROFILE.summary.en has ${summaryLen} words — keep it under ~90 for ATS/recruiters`);
+function ym(value, path, { required = false } = {}) {
+    const v = str(value);
+    if (!v) { if (required) errors.push(`${path}: date is required (YYYY-MM)`); return; }
+    if (!YM.test(v)) errors.push(`${path}: date must be YYYY-MM (got "${v}")`);
 }
 
-if (UI) checkBilingual(UI, 'UI');
+function image(value, path) {
+    const v = str(value);
+    if (!v || /^(https?:)?\/\//.test(v)) return;
+    if (!existsSync(join(root, v.replace(/^\/+/, '')))) errors.push(`${path}: image not found in the repository (${v})`);
+}
+
+function list(items, path, fn) {
+    (Array.isArray(items) ? items : []).forEach((item, i) => fn(item || {}, `${path}[${i + 1}]`));
+}
+
+/* ── profile.json ── */
+const p = profile.person || {};
+bi(p.name, 'profile › name', { required: true });
+bi(p.headline, 'profile › headline', { required: true });
+bi(p.location, 'profile › location');
+image(p.photo, 'profile › photo');
+if (!str(p.email)) errors.push('profile › email: is required');
+else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)) errors.push(`profile › email looks invalid: ${p.email}`);
+bi(profile.summary, 'profile › summary', { required: true });
+const summaryWords = str(profile.summary?.en).split(/\s+/).filter(Boolean).length;
+if (summaryWords > 90) warnings.push(`profile › summary (English) has ${summaryWords} words — keep it under ~90 for ATS/recruiters`);
+list(profile.titles, 'profile › titles', (x, at) => bi(x, at, { required: true }));
+list(profile.stats, 'profile › stats', (x, at) => {
+    bi(x.label, `${at} › label`, { required: true });
+    if (!str(x.value) && !str(x.auto)) warnings.push(`${at}: set a value or an automatic count`);
+});
+list(profile.about, 'profile › about', (x, at) => bi(x, at, { required: true }));
+list(profile.highlights, 'profile › highlights', (x, at) => { bi(x.title, `${at} › title`, { required: true }); bi(x.text, `${at} › text`); });
+list(profile.languages, 'profile › languages', (x, at) => { bi(x.name, `${at} › name`, { required: true }); bi(x.level, `${at} › level`); });
+
+/* ── experience.json ── */
+list(experience, 'experience', (job, at) => {
+    bi(job.role, `${at} › role`, { required: true });
+    bi(job.org, `${at} › organisation`, { required: true });
+    bi(job.location, `${at} › location`);
+    bi(job.tag, `${at} › tag`);
+    ym(job.start, `${at} › start`, { required: true });
+    ym(job.end, `${at} › end`);
+    if (YM.test(str(job.start)) && YM.test(str(job.end)) && job.start > job.end) errors.push(`${at}: start date is after end date`);
+    if (!Array.isArray(job.points) || !job.points.length) warnings.push(`${at}: no bullet points — ATS CVs work best with 2–5 achievements per role`);
+    list(job.points, `${at} › points`, (x, a) => bi(x, a, { required: true }));
+});
+const starts = experience.map(j => str(j.start));
+if (starts.join() !== [...starts].sort().reverse().join()) warnings.push('experience: not ordered newest → oldest');
+
+/* ── projects.json ── */
+list(projects, 'projects', (pr, at) => {
+    bi(pr.title, `${at} › title`, { required: true });
+    bi(pr.description, `${at} › description`);
+    bi(pr.award, `${at} › award`);
+    image(pr.image, `${at} › image`);
+    list(pr.tags, `${at} › tags`, (x, a) => bi(x, a));
+});
+
+/* ── achievements.json ── */
+list(achievements, 'achievements', (a, at) => {
+    bi(a.title, `${at} › title`, { required: true });
+    bi(a.issuer, `${at} › issuer`);
+    bi(a.description, `${at} › description`);
+    ym(a.date, `${at} › date`);
+    image(a.image, `${at} › image`);
+});
+
+/* ── skills.json ── */
+list(skills.competencies, 'skills › competencies', (c, at) => bi(c.name, at, { required: true }));
+list(skills.certifications, 'skills › certifications', (c, at) => {
+    bi(c.name, `${at} › name`, { required: true });
+    bi(c.issuer, `${at} › issuer`);
+    if (str(c.year) && !/^\d{4}$/.test(str(c.year))) errors.push(`${at} › year: must be a 4-digit year`);
+});
+
+/* ── education.json ── */
+list(education, 'education', (ed, at) => {
+    bi(ed.degree, `${at} › degree`, { required: true });
+    bi(ed.school, `${at} › school`, { required: true });
+    if (!ed.inProgress && !str(ed.year)) warnings.push(`${at}: set the graduation year or mark it "in progress"`);
+});
+
+/* ── ui.js ── */
+try {
+    const sandbox = { window: {} };
+    vm.runInNewContext(readFileSync(join(root, 'data/ui.js'), 'utf8'), sandbox, { filename: 'data/ui.js' });
+    if (!sandbox.window.UI) errors.push('data/ui.js: window.UI is not defined');
+} catch (err) {
+    errors.push(`data/ui.js: syntax error — ${err.message}`);
+}
 
 warnings.forEach(w => console.warn('⚠️  ' + w));
 errors.forEach(e => console.error('❌ ' + e));
 
 if (errors.length) {
-    console.error(`\n${errors.length} error(s) found. Fix them before publishing.`);
+    console.error(`\n${errors.length} error(s) found — the site was NOT published. Fix them from the dashboard and save again.`);
     process.exit(1);
 }
-console.log(`✅ Profile data is valid${warnings.length ? ` (${warnings.length} warning(s))` : ''}.`);
+console.log(`✅ Content is valid${warnings.length ? ` (${warnings.length} warning(s))` : ''}.`);
