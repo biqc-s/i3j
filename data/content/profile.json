@@ -13,22 +13,21 @@
       "en": "Saudi Arabia",
       "ar": "المملكة العربية السعودية"
     },
-    "email": "s@i3j.io",
-    "phone": "+966506090612",
-    "phoneDisplay": "+966 50 609 0612",
+    "email": "admin@i3j.io",
+    "phone": "+966510072172",
+    "phoneDisplay": "+966 51 007 2172",
     "linkedin": "https://www.linkedin.com/in/saeedj",
     "website": "https://i3j.io",
-    "available": true,
-    "photo": ""
+    "available": true
   },
   "summary": {
     "en": "Transformational executive and PMP®-certified project leader with dual degrees in Media and Information Technology and an IRCA-certified ISO 9001:2015 Lead Auditor credential. Proven record leading cooperative operations as CEO, driving ERP-based digital transformation, and delivering quality, risk and compliance programs for the Ministry of Tourism aligned with Vision 2030. Skilled in governance, strategic planning, data visualization, AI and Unreal Engine, turning complex data into actionable strategies.",
-    "ar": "قائد تنفيذي تحويلي ومدير مشاريع معتمد PMP® يحمل شهادتين في الإعلام وتقنية المعلومات، ومدقق رئيسي معتمد من IRCA في ISO 9001:2015. سجل مثبت في قيادة عمليات الجمعيات التعاونية كرئيس تنفيذي، وقيادة التحول الرقمي القائم على أنظمة ERP، وتنفيذ برامج الجودة والمخاطر والامتثال لوزارة السياحة بما يتوافق مع رؤية 2030. متمكن في الحوكمة والتخطيط الاستراتيجي وتصوير البيانات والذكاء الاصطناعي وUnreal Engine لتحويل البيانات المعقدة إلى استراتيجيات قابلة للتنفيذ."
+    "ar": "قائد تنفيذي للمبادرات التحويلية ومدير مشاريع معتمد PMP® يحمل شهادتين في الإعلام وتقنية المعلومات، ومدقق رئيسي معتمد من IRCA في ISO 9001:2015. سجل مثبت في قيادة عمليات الجمعيات التعاونية كرئيس تنفيذي، وقيادة التحول الرقمي القائم على أنظمة ERP، وتنفيذ برامج الجودة والمخاطر والامتثال لوزارة السياحة بما يتوافق مع رؤية 2030. متمكن في الحوكمة والتخطيط الاستراتيجي وتصوير البيانات والذكاء الاصطناعي وUnreal Engine لتحويل البيانات المعقدة إلى استراتيجيات قابلة للتنفيذ."
   },
   "titles": [
     {
       "en": "Transformational Leader",
-      "ar": "قائد تحويلي"
+      "ar": "قائد تحول"
     },
     {
       "en": "CEO & Strategist",
@@ -49,45 +48,41 @@
   ],
   "stats": [
     {
-      "value": "5",
-      "auto": "",
-      "suffix": "+",
       "label": {
         "en": "Years",
         "ar": "سنوات"
-      }
+      },
+      "value": "5",
+      "suffix": "+"
     },
     {
-      "value": "",
-      "auto": "projects",
-      "suffix": "+",
       "label": {
         "en": "Projects",
         "ar": "مشاريع"
-      }
+      },
+      "auto": "projects",
+      "suffix": "+"
     },
     {
-      "value": "",
-      "auto": "certifications",
-      "suffix": "",
       "label": {
         "en": "Certifications",
         "ar": "شهادات"
-      }
+      },
+      "auto": "certifications"
     }
   ],
   "badges": [
     {
-      "icon": "fa-certificate",
-      "text": "PMP®"
+      "text": "PMP®",
+      "icon": "fa-certificate"
     },
     {
-      "icon": "fa-shield-alt",
-      "text": "ISO 9001"
+      "text": "ISO 9001",
+      "icon": "fa-shield-alt"
     },
     {
-      "icon": "fa-robot",
-      "text": "AI / ML"
+      "text": "AI / ML",
+      "icon": "fa-robot"
     }
   ],
   "about": [
