@@ -72,7 +72,6 @@
   ],
   "certifications": [
     {
-      "icon": "fa-certificate",
       "name": {
         "en": "PMP® – Project Management Professional",
         "ar": "PMP® – محترف إدارة المشاريع"
@@ -81,13 +80,11 @@
         "en": "PMI",
         "ar": "PMI"
       },
-      "year": "",
-      "url": "",
+      "icon": "fa-certificate",
       "hideFromCv": false,
       "hideFromSite": false
     },
     {
-      "icon": "fa-shield-alt",
       "name": {
         "en": "IRCA Certified Lead Auditor (ISO 9001:2015)",
         "ar": "مدقق رئيسي معتمد من IRCA (ISO 9001:2015)"
@@ -96,13 +93,11 @@
         "en": "IRCA",
         "ar": "IRCA"
       },
-      "year": "",
-      "url": "",
+      "icon": "fa-shield-alt",
       "hideFromCv": false,
       "hideFromSite": false
     },
     {
-      "icon": "fa-code",
       "name": {
         "en": "Python Programming",
         "ar": "البرمجة بلغة Python"
@@ -111,13 +106,11 @@
         "en": "Saudi Digital Academy",
         "ar": "الأكاديمية الرقمية السعودية"
       },
-      "year": "",
-      "url": "",
+      "icon": "fa-code",
       "hideFromCv": false,
       "hideFromSite": false
     },
     {
-      "icon": "fa-brain",
       "name": {
         "en": "AI & Machine Learning",
         "ar": "الذكاء الاصطناعي وتعلم الآلة"
@@ -126,13 +119,11 @@
         "en": "King Khalid University",
         "ar": "جامعة الملك خالد"
       },
-      "year": "",
-      "url": "",
+      "icon": "fa-brain",
       "hideFromCv": false,
       "hideFromSite": false
     },
     {
-      "icon": "fa-vr-cardboard",
       "name": {
         "en": "VR / AR / MR Technologies",
         "ar": "تقنيات الواقع الافتراضي والمعزز والمختلط"
@@ -141,13 +132,11 @@
         "en": "Applied Tech Series",
         "ar": "سلسلة التقنية التطبيقية"
       },
-      "year": "",
-      "url": "",
+      "icon": "fa-vr-cardboard",
       "hideFromCv": false,
       "hideFromSite": false
     },
     {
-      "icon": "fa-gamepad",
       "name": {
         "en": "Freelance Practitioner Certificate – Game Design & Development",
         "ar": "وثيقة العمل الحر – تصميم وتطوير الألعاب الإلكترونية"
@@ -157,12 +146,11 @@
         "ar": "وزارة الموارد البشرية والتنمية الاجتماعية"
       },
       "year": 2025,
-      "url": "",
+      "icon": "fa-gamepad",
       "hideFromCv": false,
       "hideFromSite": false
     },
     {
-      "icon": "fa-chart-pie",
       "name": {
         "en": "Freelance Practitioner Certificate – Business Intelligence",
         "ar": "وثيقة العمل الحر – ذكاء الأعمال"
@@ -172,12 +160,12 @@
         "ar": "وزارة الموارد البشرية والتنمية الاجتماعية"
       },
       "year": 2023,
-      "url": "",
+      "file": "files/certificate-1.pdf",
+      "icon": "fa-chart-pie",
       "hideFromCv": false,
       "hideFromSite": false
     },
     {
-      "icon": "fa-film",
       "name": {
         "en": "Freelance Practitioner Certificate – Picture Drawing & Animated Films",
         "ar": "وثيقة العمل الحر – رسم الصور والأفلام المتحركة"
@@ -187,22 +175,16 @@
         "ar": "وزارة الموارد البشرية والتنمية الاجتماعية"
       },
       "year": 2022,
-      "url": "",
+      "icon": "fa-film",
       "hideFromCv": false,
       "hideFromSite": false
     },
     {
-      "icon": "fa-circle-check",
       "name": {
         "en": "Trusted Raed Badge – Business Intelligence",
         "ar": "شارة رائد موثوق – ذكاء الأعمال"
       },
-      "issuer": {
-        "en": "",
-        "ar": ""
-      },
-      "year": "",
-      "url": "",
+      "icon": "fa-circle-check",
       "hideFromCv": false,
       "hideFromSite": false
     }
