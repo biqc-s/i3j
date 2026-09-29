@@ -169,10 +169,7 @@ content:
     type: file
     path: data/content/experience.json
     format: json
-    list:
-      collapsible:
-        collapsed: true
-        summary: "{role.ar} — {org.ar} ({start})"
+    list: true   # must be exactly true for a file that is a list (Pages CMS)
     fields:
       - { name: role, label: المسمى الوظيفي, component: bi_required }
       - { name: org, label: جهة العمل, component: bi_required }
@@ -198,10 +195,7 @@ content:
     type: file
     path: data/content/projects.json
     format: json
-    list:
-      collapsible:
-        collapsed: true
-        summary: "{title.ar}"
+    list: true   # must be exactly true for a file that is a list (Pages CMS)
     fields:
       - { name: title, label: اسم المشروع, component: bi_required }
       - { name: description, label: الوصف, component: bi_text }
@@ -222,10 +216,7 @@ content:
     type: file
     path: data/content/achievements.json
     format: json
-    list:
-      collapsible:
-        collapsed: true
-        summary: "{title.ar} ({date})"
+    list: true   # must be exactly true for a file that is a list (Pages CMS)
     fields:
       - { name: title, label: العنوان, component: bi_required }
       - { name: issuer, label: الجهة المانحة / المنظِّمة, component: bi }
@@ -282,10 +273,7 @@ content:
     type: file
     path: data/content/education.json
     format: json
-    list:
-      collapsible:
-        collapsed: true
-        summary: "{degree.ar}"
+    list: true   # must be exactly true for a file that is a list (Pages CMS)
     fields:
       - { name: degree, label: الدرجة / التخصص, component: bi_required }
       - { name: school, label: الجامعة / الجهة, component: bi_required }
@@ -303,10 +291,7 @@ content:
     type: file
     path: data/content/testimonials.json
     format: json
-    list:
-      collapsible:
-        collapsed: true
-        summary: "{name.ar} — {role.ar}"
+    list: true   # must be exactly true for a file that is a list (Pages CMS)
     fields:
       - { name: name, label: الاسم, component: bi_required }
       - { name: role, label: المسمى والجهة, component: bi }
