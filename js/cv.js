@@ -97,9 +97,8 @@
 
     function certifications(lang) {
         const items = visible(P.certifications, 'cv').map(c => {
-            const issuer = t(c.issuer, lang);
-            const year   = c.year ? `, ${c.year}` : '';
-            return `<li>${esc(t(c.name, lang))}${issuer ? ` — ${esc(issuer)}${esc(year)}` : ''}</li>`;
+            const meta = [t(c.issuer, lang), c.year ? String(c.year) : ''].filter(Boolean).join(lang === 'ar' ? '، ' : ', ');
+            return `<li>${esc(t(c.name, lang))}${meta ? ` — ${esc(meta)}` : ''}</li>`;
         });
         return items.length ? `<ul>${items.join('')}</ul>` : '';
     }

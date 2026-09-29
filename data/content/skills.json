@@ -51,6 +51,7 @@
     }
   ],
   "tools": [
+    "Business Intelligence",
     "Risk Management",
     "Internal Auditing",
     "FMEA",
@@ -65,7 +66,8 @@
     "NFC / QR / Barcode Systems",
     "B2B Sales",
     "Stakeholder Management",
-    "Training & Development"
+    "Training & Development",
+    "Game Design & Development"
   ],
   "certifications": [
     {
@@ -137,6 +139,51 @@
       "issuer": {
         "en": "Applied Tech Series",
         "ar": "سلسلة التقنية التطبيقية"
+      },
+      "year": "",
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    },
+    {
+      "icon": "fa-chart-pie",
+      "name": {
+        "en": "Freelance Practitioner Certificate – Business Intelligence",
+        "ar": "وثيقة العمل الحر – ذكاء الأعمال"
+      },
+      "issuer": {
+        "en": "Ministry of Human Resources and Social Development",
+        "ar": "وزارة الموارد البشرية والتنمية الاجتماعية"
+      },
+      "year": 2023,
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    },
+    {
+      "icon": "fa-gamepad",
+      "name": {
+        "en": "Freelance Practitioner Certificate – Game Design & Development",
+        "ar": "وثيقة العمل الحر – تصميم وتطوير الألعاب الإلكترونية"
+      },
+      "issuer": {
+        "en": "Ministry of Human Resources and Social Development",
+        "ar": "وزارة الموارد البشرية والتنمية الاجتماعية"
+      },
+      "year": 2025,
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    },
+    {
+      "icon": "fa-circle-check",
+      "name": {
+        "en": "Trusted Raed Badge – Business Intelligence",
+        "ar": "شارة رائد موثوق – ذكاء الأعمال"
+      },
+      "issuer": {
+        "en": "",
+        "ar": ""
       },
       "year": "",
       "url": "",
