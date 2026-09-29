@@ -115,6 +115,20 @@
         const skills = visible(P.competencies, 'cv').map(c => t(c.name, lang));
         const tools  = (P.tools || []).map(x => t(x, lang));
 
+        const bodies = {
+            summary:        () => (t(P.summary, lang) ? `<p>${esc(plain(t(P.summary, lang)))}</p>` : ''),
+            skills:         () => inlineList(skills),
+            experience:     () => experience(lang),
+            projects:       () => projects(lang),
+            achievements:   () => achievements(lang),
+            education:      () => education(lang),
+            certifications: () => certifications(lang),
+            tools:          () => inlineList(tools),
+            languages:      () => languages(lang)
+        };
+        // Order and visibility come from the dashboard (Site settings → CV sections)
+        const order = (UI.cvOrder || Object.keys(bodies)).filter(id => bodies[id]);
+
         return `
         <article class="cv" lang="${lang}" dir="${dir}">
             <header class="cv-header">
@@ -122,15 +136,7 @@
                 <p class="cv-headline">${esc(t(P.person.headline, lang))}</p>
                 <p class="cv-contact">${contactLine(lang)}</p>
             </header>
-            ${section('summary', lang, P.summary ? `<p>${esc(plain(t(P.summary, lang)))}</p>` : '')}
-            ${section('skills', lang, inlineList(skills))}
-            ${section('experience', lang, experience(lang))}
-            ${section('projects', lang, projects(lang))}
-            ${section('achievements', lang, achievements(lang))}
-            ${section('education', lang, education(lang))}
-            ${section('certifications', lang, certifications(lang))}
-            ${section('tools', lang, inlineList(tools))}
-            ${section('languages', lang, languages(lang))}
+            ${order.map(id => section(id, lang, bodies[id]())).join('')}
         </article>`;
     }
 
