@@ -15,10 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const $  = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finePointer  = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let reduceMotion = prefersReducedMotion; // also true when animations are turned off in the dashboard
+    let appearance = {};
 
     let lang = detectLang();
+
+    // Apply the last known theme/colours immediately (real settings load a moment later)
+    try {
+        const cached = JSON.parse(localStorage.getItem('appearance') || 'null');
+        if (cached) applyAppearance(cached);
+    } catch (_) {}
 
     /* ════════════════════════════════════════════════════════
        RENDERING
@@ -35,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         testimonials: () => visible(P.testimonials, 'site').length,
         contact:      () => true
     };
-    const hasContent = key => !SECTION_HAS_CONTENT[key] || !!SECTION_HAS_CONTENT[key]();
+    const hasContent = key => !(UI.hiddenSections || []).includes(key)
+        && (!SECTION_HAS_CONTENT[key] || !!SECTION_HAS_CONTENT[key]());
     const shownSections = () => Array.from(document.querySelectorAll('[data-section]'))
         .map(s => s.dataset.section).filter(hasContent);
     const revealed = new Set(); // keys of .anim elements already shown — survives language switches
@@ -219,7 +228,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function renderNav() {
-        const links = Object.keys(UI.nav).filter(hasContent).map(key => {
+        const order = [...(UI.order || Object.keys(UI.nav).filter(k => k !== 'contact')), 'contact'];
+        const links = order
+            .filter(key => UI.nav[key] && hasContent(key) && !(UI.navHidden || []).includes(key))
+            .map(key => {
             const cls = key === 'contact' ? ' class="btn-nav"' : '';
             return `<li><a href="#${key}"${cls}>${esc(t(UI.nav[key], lang))}</a></li>`;
         }).join('');
@@ -271,6 +283,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderFooter() {
+        const showContact = !(UI.hiddenSections || []).includes('contact');
+        $('.footer-headline').hidden = !showContact;
+        $('#footerContacts').hidden = !showContact;
         const [a, b] = UI.contact.title;
         $('#contactTitle').innerHTML = `${esc(t(a, lang))}<span class="gold">${esc(t(b, lang))}</span>`;
 
@@ -342,7 +357,57 @@ document.addEventListener('DOMContentLoaded', () => {
         $('meta[property="og:description"]')?.setAttribute('content', desc);
         $('meta[property="og:locale"]')?.setAttribute('content', isAr ? 'ar_SA' : 'en_US');
         $('meta[property="og:locale:alternate"]')?.setAttribute('content', isAr ? 'en_US' : 'ar_SA');
-        $('#langToggle').classList.toggle('ar-active', isAr);
+        // The language button names the language you switch TO — clearer for visitors
+        const toggle = $('#langToggle');
+        toggle.classList.toggle('ar-active', isAr);
+        const next = $('.lang-next', toggle);
+        if (next) {
+            next.textContent = isAr ? 'English' : 'العربية';
+            next.lang = isAr ? 'en' : 'ar';
+        }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       APPEARANCE & LAYOUT FROM THE DASHBOARD (settings.json)
+    ════════════════════════════════════════════════════════ */
+    function hexToRgb(hex) {
+        const m = String(hex || '').trim().match(/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i);
+        if (!m) return null;
+        let h = m[1];
+        if (h.length === 3) h = h.split('').map(c => c + c).join('');
+        return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)).join(', ');
+    }
+
+    function resolveTheme(theme) {
+        if (theme === 'light' || theme === 'dark') return theme;
+        if (theme === 'auto') return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        return 'dark';
+    }
+
+    function applyAppearance(a) {
+        appearance = a || {};
+        const root = document.documentElement;
+        root.dataset.theme = resolveTheme(appearance.theme);
+        const accent = hexToRgb(appearance.accent);
+        const accent2 = hexToRgb(appearance.accent2);
+        if (accent) root.style.setProperty('--gold-rgb', accent); else root.style.removeProperty('--gold-rgb');
+        if (accent2) root.style.setProperty('--cyan-rgb', accent2); else root.style.removeProperty('--cyan-rgb');
+        reduceMotion = prefersReducedMotion || appearance.animations === false;
+        root.classList.toggle('no-motion', appearance.animations === false);
+        root.classList.toggle('no-bg-fx', appearance.backgroundEffects === false);
+        const meta = $('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', getComputedStyle(root).getPropertyValue('--bg').trim() || '#05050c');
+        // Remember for the next visit so the page opens in the right theme without a flash
+        try { localStorage.setItem('appearance', JSON.stringify({ theme: appearance.theme, accent: appearance.accent, accent2: appearance.accent2 })); } catch (_) {}
+    }
+
+    /** Put the <section> elements in the order chosen in the dashboard. */
+    function orderSections() {
+        const main = $('#main');
+        (UI.order || []).forEach(id => {
+            const el = main.querySelector(`[data-section="${id}"]`);
+            if (el) main.insertBefore(el, $('noscript', main) || null);
+        });
     }
 
     function renderJsonLd() {
@@ -444,7 +509,9 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ════════════════════════════════════════════════════════
        CUSTOM CURSOR (fine pointers only, uses delegation so re-renders keep working)
     ════════════════════════════════════════════════════════ */
-    if (finePointer && !reduceMotion) {
+    // Off by default — enable it from the dashboard (Site settings → Appearance)
+    function initCursor() {
+        if (!finePointer || reduceMotion || document.body.classList.contains('has-custom-cursor')) return;
         document.body.classList.add('has-custom-cursor', 'cursor-hidden');
         const dot     = $('.cursor-dot');
         const outline = $('.cursor-outline');
@@ -580,6 +647,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!strings.length) return;
         const current = strings[twIndex % strings.length];
 
+        if (appearance.typewriter === false) { // static title, no rotation
+            typewriterEl.textContent = strings[0];
+            return;
+        }
         if (reduceMotion) {
             typewriterEl.textContent = current;
             twIndex++;
@@ -630,6 +701,9 @@ document.addEventListener('DOMContentLoaded', () => {
     onScroll();
     loadContent().then(data => {
         P = data;
+        applyAppearance((P.settings && P.settings.appearance) || {});
+        orderSections();
+        if (appearance.customCursor) initCursor();
         renderAll();
         renderJsonLd();
         restartTypewriter();

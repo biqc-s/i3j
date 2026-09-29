@@ -67,8 +67,56 @@
        Content lives in data/content/*.json and is edited from the Pages CMS dashboard.
        The files are merged into one PROFILE object used by the site and the CV. */
     // Files that may be missing (e.g. a section added later) fall back to an empty list.
-    const CONTENT_FILES = ['profile', 'experience', 'projects', 'achievements', 'skills', 'education', 'testimonials'];
-    const OPTIONAL_FILES = ['achievements', 'testimonials'];
+    const CONTENT_FILES = ['profile', 'experience', 'projects', 'achievements', 'skills', 'education', 'testimonials', 'settings'];
+    const OPTIONAL_FILES = ['achievements', 'testimonials', 'settings'];
+
+    const filled = v => v && (typeof v === 'string' ? v.trim() : (v.en || v.ar));
+
+    /** Overlay the dashboard's "Site settings" (settings.json) on the default labels in data/ui.js. */
+    function applySettings(S) {
+        const UI = window.UI;
+        if (!S || Array.isArray(S) || !UI) return;
+        const set = (obj, key, val) => { if (filled(val)) obj[key] = val; };
+
+        if (S.meta) { set(UI.meta, 'title', S.meta.title); set(UI.meta, 'description', S.meta.description); }
+        if (S.hero) {
+            ['greeting', 'available', 'cta'].forEach(k => set(UI.hero, k, S.hero[k]));
+            set(UI.cvMenu, 'button', S.hero.cvButton);
+        }
+        if (S.contact) set(UI.contact, 'subtitle', S.contact.subtitle);
+
+        if (Array.isArray(S.sections) && S.sections.length) {
+            UI.order = [];
+            UI.hiddenSections = [];
+            UI.navHidden = [];
+            S.sections.forEach(sec => {
+                if (!sec || !sec.id) return;
+                const id = sec.id;
+                if (sec.show === false) UI.hiddenSections.push(id);
+                if (sec.inNav === false) UI.navHidden.push(id);
+                if (id !== 'contact') UI.order.push(id);
+                set(UI.nav, id, sec.nav);
+                if (id === 'contact') {
+                    UI.contact.title = [sec.title || UI.contact.title[0], filled(sec.highlight) ? sec.highlight : UI.contact.title[1]];
+                } else {
+                    const cur = UI.sections[id] || { tag: sec.nav, title: [{ en: '', ar: '' }, { en: '', ar: '' }] };
+                    UI.sections[id] = {
+                        tag: filled(sec.tag) ? sec.tag : cur.tag,
+                        title: [sec.title || cur.title[0], filled(sec.highlight) ? sec.highlight : cur.title[1]]
+                    };
+                }
+            });
+        }
+
+        if (S.cv && Array.isArray(S.cv.sections) && S.cv.sections.length) {
+            UI.cvOrder = [];
+            S.cv.sections.forEach(sec => {
+                if (!sec || !sec.id) return;
+                if (sec.show !== false) UI.cvOrder.push(sec.id);
+                set(UI.cv, sec.id, sec.title);
+            });
+        }
+    }
 
     let contentPromise = null;
     function loadContent() {
@@ -79,11 +127,13 @@
                 if (!r.ok) throw new Error(`${name}.json: HTTP ${r.status}`);
                 return r.json();
             }).catch(err => {
-                if (OPTIONAL_FILES.includes(name)) { console.warn(err); return []; }
+                if (OPTIONAL_FILES.includes(name)) { console.warn(err); return name === 'settings' ? {} : []; }
                 throw err;
             })
-        )).then(([profile, experience, projects, achievements, skills, education, testimonials]) => {
-            window.PROFILE = { ...profile, ...skills, experience, projects, achievements, education, testimonials };
+        )).then(([profile, experience, projects, achievements, skills, education, testimonials, settings]) => {
+            settings = Array.isArray(settings) ? {} : (settings || {});
+            applySettings(settings);
+            window.PROFILE = { ...profile, ...skills, experience, projects, achievements, education, testimonials, settings };
             return window.PROFILE;
         });
         return contentPromise;

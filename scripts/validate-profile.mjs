@@ -149,6 +149,30 @@ list(testimonials, 'testimonials', (r, at) => {
     image(r.photo, `${at} › photo`);
 });
 
+/* ── settings.json (Site settings page) ── */
+if (existsSync(join(root, 'data/content/settings.json'))) {
+    const settings = readJson('settings', 'object');
+    const ap = settings.appearance || {};
+    const HEX = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
+    ['accent', 'accent2'].forEach(k => {
+        if (str(ap[k]) && !HEX.test(str(ap[k]))) errors.push(`settings › appearance › ${k}: colour must look like #d4af37 (got "${ap[k]}")`);
+    });
+    if (ap.theme && !['dark', 'light', 'auto'].includes(ap.theme)) errors.push(`settings › appearance › theme: must be dark, light or auto`);
+
+    const checkIds = (items, allowed, at) => {
+        const ids = (Array.isArray(items) ? items : []).map(x => x && x.id);
+        ids.forEach((id, i) => { if (!allowed.includes(id)) errors.push(`${at}[${i + 1}]: unknown section "${id}"`); });
+        const dup = ids.filter((id, i) => ids.indexOf(id) !== i);
+        if (dup.length) errors.push(`${at}: section listed twice (${[...new Set(dup)].join(', ')})`);
+        const missing = allowed.filter(id => !ids.includes(id));
+        if (ids.length && missing.length) warnings.push(`${at}: missing ${missing.join(', ')} (defaults will be used)`);
+    };
+    checkIds(settings.sections, ['about', 'experience', 'projects', 'achievements', 'skills', 'education', 'testimonials', 'contact'], 'settings › sections');
+    checkIds(settings.cv?.sections, ['summary', 'skills', 'experience', 'projects', 'achievements', 'education', 'certifications', 'tools', 'languages'], 'settings › cv › sections');
+    list(settings.sections, 'settings › sections', (s, at) => { bi(s.nav, `${at} › nav`); bi(s.highlight, `${at} › highlight`); });
+    list(settings.cv?.sections, 'settings › cv › sections', (s, at) => bi(s.title, `${at} › title`));
+}
+
 /* ── ui.js ── */
 try {
     const sandbox = { window: {} };

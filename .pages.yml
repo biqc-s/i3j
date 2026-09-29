@@ -301,3 +301,120 @@ content:
       - { name: photo, label: صورة الشخص, type: image, description: "اختياري — تظهر الأحرف الأولى إذا لم توجد صورة" }
       - { name: url, label: رابط (مثل ملفه في LinkedIn), type: string }
       - { name: hideFromSite, component: hide_site }
+
+  # ═══════════════ إعدادات الموقع ═══════════════
+  - name: settings
+    label: ⚙️ إعدادات الموقع
+    description: الألوان والمظهر، ترتيب الأقسام وإظهارها، العناوين والأزرار، وأقسام السيرة الذاتية
+    type: file
+    path: data/content/settings.json
+    format: json
+    fields:
+      - name: appearance
+        label: 🎨 المظهر
+        type: object
+        fields:
+          - name: theme
+            label: الوضع
+            type: select
+            options:
+              values:
+                - { value: dark, label: داكن }
+                - { value: light, label: فاتح }
+                - { value: auto, label: تلقائي (حسب جهاز الزائر) }
+          - name: accent
+            label: اللون الرئيسي
+            type: string
+            description: "كود اللون مثل #d4af37 (ذهبي). اختر لوناً من htmlcolorcodes.com"
+            pattern: { regex: '^(#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}))?$', message: "اكتب اللون بصيغة #RRGGBB" }
+          - name: accent2
+            label: اللون الثانوي
+            type: string
+            description: "مثل #4fc3f7 (أزرق فاتح)"
+            pattern: { regex: '^(#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}))?$', message: "اكتب اللون بصيغة #RRGGBB" }
+          - { name: animations, label: الحركات والتأثيرات عند التمرير, type: boolean, default: true }
+          - { name: typewriter, label: الألقاب المتحركة (الكتابة التلقائية), type: boolean, default: true, description: "عند الإيقاف يظهر أول لقب ثابتاً" }
+          - { name: backgroundEffects, label: خلفية زخرفية (الشبكة والدوائر), type: boolean, default: true }
+          - { name: customCursor, label: مؤشر فأرة مخصص, type: boolean, default: false, description: "يُنصح بإبقائه مغلقاً لسهولة الاستخدام" }
+      - name: meta
+        label: 🔎 عنوان الموقع ووصفه (لمحركات البحث)
+        type: object
+        fields:
+          - { name: title, label: عنوان الصفحة, component: bi }
+          - { name: description, label: الوصف, component: bi_text }
+      - name: hero
+        label: 🏠 نصوص الواجهة الرئيسية
+        type: object
+        fields:
+          - { name: greeting, label: التحية, component: bi }
+          - { name: available, label: شارة "متاح للتعاون", component: bi }
+          - { name: cta, label: الزر الرئيسي, component: bi }
+          - { name: cvButton, label: زر تحميل السيرة, component: bi }
+      - name: sections
+        label: 📑 أقسام الموقع (اسحب لتغيير الترتيب)
+        description: "الترتيب هنا = ترتيب الأقسام في الصفحة والقائمة. قسم التواصل يبقى دائماً في الأسفل."
+        type: object
+        list:
+          min: 8
+          max: 8
+          collapsible:
+            collapsed: true
+            summary: "{nav.ar} — {nav.en}"
+        fields:
+          - name: id
+            label: القسم
+            type: select
+            readonly: true
+            options:
+              values:
+                - { value: about, label: نبذة }
+                - { value: experience, label: الخبرات }
+                - { value: projects, label: المشاريع }
+                - { value: achievements, label: الإنجازات }
+                - { value: skills, label: المهارات والشهادات }
+                - { value: education, label: التعليم }
+                - { value: testimonials, label: التوصيات }
+                - { value: contact, label: التواصل }
+          - { name: show, label: إظهار القسم, type: boolean, default: true }
+          - { name: inNav, label: إظهاره في القائمة العلوية, type: boolean, default: true }
+          - { name: nav, label: الاسم في القائمة, component: bi }
+          - { name: tag, label: الشارة الصغيرة فوق العنوان, component: bi }
+          - { name: title, label: العنوان (الجزء العادي), component: bi }
+          - { name: highlight, label: العنوان (الجزء الملوّن), component: bi }
+      - name: contact
+        label: ✉️ قسم التواصل
+        type: object
+        fields:
+          - { name: subtitle, label: النص تحت العنوان, component: bi }
+      - name: cv
+        label: 📄 السيرة الذاتية
+        type: object
+        fields:
+          - name: sections
+            label: أقسام السيرة (اسحب لتغيير الترتيب)
+            description: "عناوين قياسية تساعد أنظمة ATS — يُفضّل عدم تغييرها كثيراً"
+            type: object
+            list:
+              min: 9
+              max: 9
+              collapsible:
+                collapsed: true
+                summary: "{title.ar} — {title.en}"
+            fields:
+              - name: id
+                label: القسم
+                type: select
+                readonly: true
+                options:
+                  values:
+                    - { value: summary, label: الملخص المهني }
+                    - { value: skills, label: الكفاءات الأساسية }
+                    - { value: experience, label: الخبرة العملية }
+                    - { value: projects, label: المشاريع }
+                    - { value: achievements, label: الجوائز والإنجازات }
+                    - { value: education, label: التعليم }
+                    - { value: certifications, label: الشهادات }
+                    - { value: tools, label: المهارات التقنية }
+                    - { value: languages, label: اللغات }
+              - { name: show, label: إظهار في السيرة, type: boolean, default: true }
+              - { name: title, label: العنوان, component: bi }
