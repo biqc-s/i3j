@@ -6,7 +6,7 @@
 
 @page {
     size: A4;
-    margin: 14mm 15mm;
+    margin: 12mm 15mm;
 }
 
 .cv {
@@ -19,7 +19,7 @@
     background: #fff;
     font-family: Calibri, Carlito, Arial, 'Helvetica Neue', Helvetica, sans-serif;
     font-size: 10.5pt;
-    line-height: 1.45;
+    line-height: 1.4;
     text-align: start;
 }
 .cv[lang="ar"] {
@@ -65,7 +65,7 @@
 .cv-sep { color: var(--cv-rule); }
 
 /* Sections */
-.cv-section { margin-top: 10pt; }
+.cv-section { margin-top: 8.5pt; }
 .cv-section > h2 {
     font-family: inherit;
     font-size: 11.5pt;
@@ -88,11 +88,10 @@
 .cv-inline .cv-sep { padding: 0 1pt; }
 
 /* Entries (jobs, projects, education) */
-.cv-entry {
-    margin-bottom: 7pt;
-    break-inside: avoid;
-    page-break-inside: avoid;
-}
+.cv-entry { margin-bottom: 6pt; }
+/* Long entries may split across pages, but a title never ends a page alone */
+.cv-entry-head, .cv-org, .cv-entry h3 { break-after: avoid; page-break-after: avoid; }
+.cv-entry-compact, .cv li { break-inside: avoid; page-break-inside: avoid; }
 .cv-entry:last-child { margin-bottom: 0; }
 .cv-entry-compact { margin-bottom: 5pt; }
 

@@ -67,7 +67,8 @@
     "B2B Sales",
     "Stakeholder Management",
     "Training & Development",
-    "Game Design & Development"
+    "Game Design & Development",
+    "Animation"
   ],
   "certifications": [
     {
@@ -146,6 +147,21 @@
       "hideFromSite": false
     },
     {
+      "icon": "fa-gamepad",
+      "name": {
+        "en": "Freelance Practitioner Certificate – Game Design & Development",
+        "ar": "وثيقة العمل الحر – تصميم وتطوير الألعاب الإلكترونية"
+      },
+      "issuer": {
+        "en": "Ministry of Human Resources and Social Development",
+        "ar": "وزارة الموارد البشرية والتنمية الاجتماعية"
+      },
+      "year": 2025,
+      "url": "",
+      "hideFromCv": false,
+      "hideFromSite": false
+    },
+    {
       "icon": "fa-chart-pie",
       "name": {
         "en": "Freelance Practitioner Certificate – Business Intelligence",
@@ -161,16 +177,16 @@
       "hideFromSite": false
     },
     {
-      "icon": "fa-gamepad",
+      "icon": "fa-film",
       "name": {
-        "en": "Freelance Practitioner Certificate – Game Design & Development",
-        "ar": "وثيقة العمل الحر – تصميم وتطوير الألعاب الإلكترونية"
+        "en": "Freelance Practitioner Certificate – Picture Drawing & Animated Films",
+        "ar": "وثيقة العمل الحر – رسم الصور والأفلام المتحركة"
       },
       "issuer": {
         "en": "Ministry of Human Resources and Social Development",
         "ar": "وزارة الموارد البشرية والتنمية الاجتماعية"
       },
-      "year": 2025,
+      "year": 2022,
       "url": "",
       "hideFromCv": false,
       "hideFromSite": false
