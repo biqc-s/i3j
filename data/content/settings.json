@@ -1,6 +1,6 @@
 {
   "appearance": {
-    "theme": "dark",
+    "theme": "auto",
     "accent": "#d4af37",
     "accent2": "#4fc3f7",
     "animations": true,
@@ -9,42 +9,279 @@
     "customCursor": false
   },
   "meta": {
-    "title": { "en": "Saeed Ahmad Jahash | Transformational Leader", "ar": "سعيد أحمد جهاش | قائد تحويلي" },
+    "title": {
+      "en": "Saeed Ahmad Jahash | Transformational Leader",
+      "ar": "سعيد أحمد آل جهاش "
+    },
     "description": {
       "en": "Portfolio of Saeed Ahmad Jahash – CEO, PMP®, ISO 9001 Lead Auditor and transformational leader in media, quality and technology. Download the ATS-friendly CV in English or Arabic.",
       "ar": "الموقع الشخصي لسعيد أحمد جهاش – رئيس تنفيذي، معتمد PMP®، مدقق رئيسي ISO 9001 وقائد تحويلي في الإعلام والجودة والتقنية. حمّل السيرة الذاتية المتوافقة مع ATS بالعربية أو الإنجليزية."
     }
   },
   "hero": {
-    "greeting": { "en": "Hello, I am", "ar": "مرحباً، أنا" },
-    "available": { "en": "Open to Collaboration", "ar": "متاح للتعاون" },
-    "cta": { "en": "Discover My Journey", "ar": "اكتشف مسيرتي" },
-    "cvButton": { "en": "Download CV", "ar": "تحميل السيرة" }
+    "greeting": {
+      "en": "Hello, I am",
+      "ar": "مرحباً، أنا"
+    },
+    "available": {
+      "en": "Open to Collaboration",
+      "ar": "متاح للتعاون"
+    },
+    "cta": {
+      "en": "Discover My Journey",
+      "ar": "اكتشف مسيرتي"
+    },
+    "cvButton": {
+      "en": "Download CV",
+      "ar": "تحميل السيرة"
+    }
   },
   "sections": [
-    { "id": "about",        "show": true, "inNav": true,  "nav": { "en": "About", "ar": "نبذة" },               "tag": { "en": "About", "ar": "نبذة" },                   "title": { "en": "Who is ", "ar": "من هو " },          "highlight": { "en": "Saeed?", "ar": "سعيد؟" } },
-    { "id": "experience",   "show": true, "inNav": true,  "nav": { "en": "Experience", "ar": "الخبرة" },        "tag": { "en": "Experience", "ar": "الخبرة" },             "title": { "en": "Professional ", "ar": "المسيرة " },  "highlight": { "en": "Odyssey", "ar": "المهنية" } },
-    { "id": "projects",     "show": true, "inNav": true,  "nav": { "en": "Projects", "ar": "المشاريع" },        "tag": { "en": "Projects", "ar": "المشاريع" },             "title": { "en": "Key ", "ar": "أبرز " },              "highlight": { "en": "Projects", "ar": "المشاريع" } },
-    { "id": "achievements", "show": true, "inNav": true,  "nav": { "en": "Achievements", "ar": "الإنجازات" },   "tag": { "en": "Achievements", "ar": "الإنجازات" },        "title": { "en": "Awards & ", "ar": "الجوائز " },      "highlight": { "en": "Achievements", "ar": "والإنجازات" } },
-    { "id": "skills",       "show": true, "inNav": true,  "nav": { "en": "Skills", "ar": "المهارات" },          "tag": { "en": "Skills", "ar": "المهارات" },               "title": { "en": "Expertise & ", "ar": "الخبرات " },   "highlight": { "en": "Credentials", "ar": "والمؤهلات" } },
-    { "id": "education",    "show": true, "inNav": true,  "nav": { "en": "Education", "ar": "التعليم" },        "tag": { "en": "Education", "ar": "التعليم" },             "title": { "en": "", "ar": "" },                       "highlight": { "en": "Education", "ar": "التعليم" } },
-    { "id": "testimonials", "show": true, "inNav": false, "nav": { "en": "Recommendations", "ar": "التوصيات" }, "tag": { "en": "Recommendations", "ar": "التوصيات" },        "title": { "en": "What People ", "ar": "ماذا " },      "highlight": { "en": "Say", "ar": "يقولون" } },
-    { "id": "contact",      "show": true, "inNav": true,  "nav": { "en": "Contact", "ar": "تواصل" },            "tag": { "en": "Contact", "ar": "تواصل" },                 "title": { "en": "Let's ", "ar": "لنبدأ " },           "highlight": { "en": "Connect", "ar": "التواصل" } }
+    {
+      "id": "about",
+      "show": true,
+      "inNav": true,
+      "nav": {
+        "en": "About",
+        "ar": "نبذة"
+      },
+      "tag": {
+        "en": "About",
+        "ar": "نبذة"
+      },
+      "title": {
+        "en": "Who is ",
+        "ar": "من هو "
+      },
+      "highlight": {
+        "en": "Saeed?",
+        "ar": "سعيد؟"
+      }
+    },
+    {
+      "id": "experience",
+      "show": true,
+      "inNav": true,
+      "nav": {
+        "en": "Experience",
+        "ar": "الخبرة"
+      },
+      "tag": {
+        "en": "Experience",
+        "ar": "الخبرة"
+      },
+      "title": {
+        "en": "Professional ",
+        "ar": "المسيرة "
+      },
+      "highlight": {
+        "en": "Odyssey",
+        "ar": "المهنية"
+      }
+    },
+    {
+      "id": "projects",
+      "show": true,
+      "inNav": true,
+      "nav": {
+        "en": "Projects",
+        "ar": "المشاريع"
+      },
+      "tag": {
+        "en": "Projects",
+        "ar": "المشاريع"
+      },
+      "title": {
+        "en": "Key ",
+        "ar": "أبرز "
+      },
+      "highlight": {
+        "en": "Projects",
+        "ar": "المشاريع"
+      }
+    },
+    {
+      "id": "achievements",
+      "show": true,
+      "inNav": true,
+      "nav": {
+        "en": "Achievements",
+        "ar": "الإنجازات"
+      },
+      "tag": {
+        "en": "Achievements",
+        "ar": "الإنجازات"
+      },
+      "title": {
+        "en": "Awards & ",
+        "ar": "الجوائز "
+      },
+      "highlight": {
+        "en": "Achievements",
+        "ar": "والإنجازات"
+      }
+    },
+    {
+      "id": "skills",
+      "show": true,
+      "inNav": true,
+      "nav": {
+        "en": "Skills",
+        "ar": "المهارات"
+      },
+      "tag": {
+        "en": "Skills",
+        "ar": "المهارات"
+      },
+      "title": {
+        "en": "Expertise & ",
+        "ar": "الخبرات "
+      },
+      "highlight": {
+        "en": "Credentials",
+        "ar": "والمؤهلات"
+      }
+    },
+    {
+      "id": "education",
+      "show": true,
+      "inNav": true,
+      "nav": {
+        "en": "Education",
+        "ar": "التعليم"
+      },
+      "tag": {
+        "en": "Education",
+        "ar": "التعليم"
+      },
+      "highlight": {
+        "en": "Education",
+        "ar": "التعليم"
+      }
+    },
+    {
+      "id": "testimonials",
+      "show": true,
+      "inNav": false,
+      "nav": {
+        "en": "Recommendations",
+        "ar": "التوصيات"
+      },
+      "tag": {
+        "en": "Recommendations",
+        "ar": "التوصيات"
+      },
+      "title": {
+        "en": "What People ",
+        "ar": "ماذا "
+      },
+      "highlight": {
+        "en": "Say",
+        "ar": "يقولون"
+      }
+    },
+    {
+      "id": "contact",
+      "show": true,
+      "inNav": true,
+      "nav": {
+        "en": "Contact",
+        "ar": "تواصل"
+      },
+      "tag": {
+        "en": "Contact",
+        "ar": "تواصل"
+      },
+      "title": {
+        "en": "Let's ",
+        "ar": "لنبدأ "
+      },
+      "highlight": {
+        "en": "Connect",
+        "ar": "التواصل"
+      }
+    }
   ],
   "contact": {
-    "subtitle": { "en": "Ready to transform your vision into reality?", "ar": "مستعد لتحويل رؤيتك إلى واقع؟" }
+    "subtitle": {
+      "en": "Ready to transform your vision into reality?",
+      "ar": "مستعد لتحويل رؤيتك إلى واقع؟"
+    }
   },
   "cv": {
     "sections": [
-      { "id": "summary",        "show": true, "title": { "en": "Professional Summary", "ar": "الملخص المهني" } },
-      { "id": "skills",         "show": true, "title": { "en": "Core Competencies", "ar": "الكفاءات الأساسية" } },
-      { "id": "experience",     "show": true, "title": { "en": "Work Experience", "ar": "الخبرة العملية" } },
-      { "id": "projects",       "show": true, "title": { "en": "Key Projects", "ar": "أبرز المشاريع" } },
-      { "id": "achievements",   "show": true, "title": { "en": "Awards & Achievements", "ar": "الجوائز والإنجازات" } },
-      { "id": "education",      "show": true, "title": { "en": "Education", "ar": "التعليم" } },
-      { "id": "certifications", "show": true, "title": { "en": "Certifications", "ar": "الشهادات المهنية" } },
-      { "id": "tools",          "show": true, "title": { "en": "Technical Skills", "ar": "المهارات التقنية" } },
-      { "id": "languages",      "show": true, "title": { "en": "Languages", "ar": "اللغات" } }
+      {
+        "id": "summary",
+        "show": true,
+        "title": {
+          "en": "Professional Summary",
+          "ar": "الملخص المهني"
+        }
+      },
+      {
+        "id": "skills",
+        "show": true,
+        "title": {
+          "en": "Core Competencies",
+          "ar": "الكفاءات الأساسية"
+        }
+      },
+      {
+        "id": "experience",
+        "show": true,
+        "title": {
+          "en": "Work Experience",
+          "ar": "الخبرة العملية"
+        }
+      },
+      {
+        "id": "projects",
+        "show": true,
+        "title": {
+          "en": "Key Projects",
+          "ar": "أبرز المشاريع"
+        }
+      },
+      {
+        "id": "achievements",
+        "show": true,
+        "title": {
+          "en": "Awards & Achievements",
+          "ar": "الجوائز والإنجازات"
+        }
+      },
+      {
+        "id": "education",
+        "show": true,
+        "title": {
+          "en": "Education",
+          "ar": "التعليم"
+        }
+      },
+      {
+        "id": "certifications",
+        "show": true,
+        "title": {
+          "en": "Certifications",
+          "ar": "الشهادات المهنية"
+        }
+      },
+      {
+        "id": "tools",
+        "show": true,
+        "title": {
+          "en": "Technical Skills",
+          "ar": "المهارات التقنية"
+        }
+      },
+      {
+        "id": "languages",
+        "show": true,
+        "title": {
+          "en": "Languages",
+          "ar": "اللغات"
+        }
+      }
     ]
   }
 }
