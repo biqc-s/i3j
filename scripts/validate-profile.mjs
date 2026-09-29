@@ -10,7 +10,7 @@
    • every referenced image exists in the repository
 ════════════════════════════════════════════════════════════ */
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import vm from 'node:vm';
@@ -43,14 +43,16 @@ const testimonials = existsSync(join(root, 'data/content/testimonials.json')) ? 
 const str = v => (v == null ? '' : String(v).trim());
 
 /** A bilingual value {en, ar}. required → English must exist; Arabic missing is a warning. */
-function bi(value, path, { required = false } = {}) {
+function bi(value, path, { required = false, soft = false } = {}) {
+    // soft: the dashboard allows saving it empty, so only warn (the site simply hides empty items)
+    const missing = msg => (soft ? warnings.push(`${path}: ${msg} — it will be hidden on the site`) : errors.push(`${path}: ${msg}`));
     if (value == null || value === '') {
-        if (required) errors.push(`${path}: is required`);
+        if (required) missing('is empty');
         return;
     }
     if (typeof value === 'string') return; // plain text is allowed (same in both languages)
     const en = str(value.en), ar = str(value.ar);
-    if (required && !en && !ar) errors.push(`${path}: is required`);
+    if (required && !en && !ar) missing('is empty');
     else if (en && !ar) warnings.push(`${path}: Arabic translation is missing (English will be shown)`);
     else if (!en && ar) warnings.push(`${path}: English translation is missing`);
 }
@@ -68,6 +70,18 @@ function image(value, path) {
     if (!existsSync(join(root, v.replace(/^\/+/, '')))) errors.push(`${path}: image not found in the repository (${v})`);
 }
 
+/** Attached PDF (dashboard "PDF file" field): must exist, be a .pdf, and stay reasonably small. */
+function pdf(value, path) {
+    const v = str(value);
+    if (!v || /^(https?:)?\/\//.test(v)) return;
+    const file = join(root, v.replace(/^\/+/, ''));
+    if (!existsSync(file)) { errors.push(`${path}: file not found in the repository (${v})`); return; }
+    if (!/\.pdf$/i.test(v)) errors.push(`${path}: only PDF files are allowed (${v})`);
+    const mb = statSync(file).size / 1024 / 1024;
+    if (mb > 20) errors.push(`${path}: file is ${mb.toFixed(1)} MB — keep PDFs under 20 MB (compress it first)`);
+    else if (mb > 5) warnings.push(`${path}: file is ${mb.toFixed(1)} MB — consider compressing it for faster loading`);
+}
+
 function list(items, path, fn) {
     (Array.isArray(items) ? items : []).forEach((item, i) => fn(item || {}, `${path}[${i + 1}]`));
 }
@@ -80,15 +94,15 @@ bi(p.location, 'profile › location');
 image(p.photo, 'profile › photo');
 if (!str(p.email)) errors.push('profile › email: is required');
 else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email)) errors.push(`profile › email looks invalid: ${p.email}`);
-bi(profile.summary, 'profile › summary', { required: true });
+bi(profile.summary, 'profile › summary', { required: true, soft: true });
 const summaryWords = str(profile.summary?.en).split(/\s+/).filter(Boolean).length;
 if (summaryWords > 90) warnings.push(`profile › summary (English) has ${summaryWords} words — keep it under ~90 for ATS/recruiters`);
-list(profile.titles, 'profile › titles', (x, at) => bi(x, at, { required: true }));
+list(profile.titles, 'profile › titles', (x, at) => bi(x, at, { required: true, soft: true }));
 list(profile.stats, 'profile › stats', (x, at) => {
     bi(x.label, `${at} › label`, { required: true });
     if (!str(x.value) && !str(x.auto)) warnings.push(`${at}: set a value or an automatic count`);
 });
-list(profile.about, 'profile › about', (x, at) => bi(x, at, { required: true }));
+list(profile.about, 'profile › about', (x, at) => bi(x, at, { required: true, soft: true }));
 list(profile.highlights, 'profile › highlights', (x, at) => { bi(x.title, `${at} › title`, { required: true }); bi(x.text, `${at} › text`); });
 list(profile.languages, 'profile › languages', (x, at) => { bi(x.name, `${at} › name`, { required: true }); bi(x.level, `${at} › level`); });
 
@@ -102,7 +116,7 @@ list(experience, 'experience', (job, at) => {
     ym(job.end, `${at} › end`);
     if (YM.test(str(job.start)) && YM.test(str(job.end)) && job.start > job.end) errors.push(`${at}: start date is after end date`);
     if (!Array.isArray(job.points) || !job.points.length) warnings.push(`${at}: no bullet points — ATS CVs work best with 2–5 achievements per role`);
-    list(job.points, `${at} › points`, (x, a) => bi(x, a, { required: true }));
+    list(job.points, `${at} › points`, (x, a) => bi(x, a, { required: true, soft: true }));
 });
 const starts = experience.map(j => str(j.start));
 if (starts.join() !== [...starts].sort().reverse().join()) warnings.push('experience: not ordered newest → oldest');
@@ -113,6 +127,7 @@ list(projects, 'projects', (pr, at) => {
     bi(pr.description, `${at} › description`);
     bi(pr.award, `${at} › award`);
     image(pr.image, `${at} › image`);
+    pdf(pr.file, `${at} › file`);
     list(pr.tags, `${at} › tags`, (x, a) => bi(x, a));
 });
 
@@ -123,6 +138,7 @@ list(achievements, 'achievements', (a, at) => {
     bi(a.description, `${at} › description`);
     ym(a.date, `${at} › date`);
     image(a.image, `${at} › image`);
+    pdf(a.file, `${at} › file`);
 });
 
 /* ── skills.json ── */
@@ -130,6 +146,7 @@ list(skills.competencies, 'skills › competencies', (c, at) => bi(c.name, at, {
 list(skills.certifications, 'skills › certifications', (c, at) => {
     bi(c.name, `${at} › name`, { required: true });
     bi(c.issuer, `${at} › issuer`);
+    pdf(c.file, `${at} › file`);
     if (str(c.year) && !/^\d{4}$/.test(str(c.year))) errors.push(`${at} › year: must be a 4-digit year`);
 });
 
@@ -137,6 +154,7 @@ list(skills.certifications, 'skills › certifications', (c, at) => {
 list(education, 'education', (ed, at) => {
     bi(ed.degree, `${at} › degree`, { required: true });
     bi(ed.school, `${at} › school`, { required: true });
+    pdf(ed.file, `${at} › file`);
     if (!ed.inProgress && !str(ed.year)) warnings.push(`${at}: set the graduation year or mark it "in progress"`);
 });
 
@@ -144,7 +162,7 @@ list(education, 'education', (ed, at) => {
 list(testimonials, 'testimonials', (r, at) => {
     bi(r.name, `${at} › name`, { required: true });
     bi(r.role, `${at} › role`);
-    bi(r.text, `${at} › text`, { required: true });
+    bi(r.text, `${at} › text`, { required: true, soft: true });
     ym(r.date, `${at} › date`);
     image(r.photo, `${at} › photo`);
 });
