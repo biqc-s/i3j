@@ -38,6 +38,7 @@ const projects     = readJson('projects', 'array');
 const achievements = readJson('achievements', 'array');
 const skills       = readJson('skills', 'object');
 const education    = readJson('education', 'array');
+const testimonials = existsSync(join(root, 'data/content/testimonials.json')) ? readJson('testimonials', 'array') : [];
 
 const str = v => (v == null ? '' : String(v).trim());
 
@@ -137,6 +138,15 @@ list(education, 'education', (ed, at) => {
     bi(ed.degree, `${at} › degree`, { required: true });
     bi(ed.school, `${at} › school`, { required: true });
     if (!ed.inProgress && !str(ed.year)) warnings.push(`${at}: set the graduation year or mark it "in progress"`);
+});
+
+/* ── testimonials.json ── */
+list(testimonials, 'testimonials', (r, at) => {
+    bi(r.name, `${at} › name`, { required: true });
+    bi(r.role, `${at} › role`);
+    bi(r.text, `${at} › text`, { required: true });
+    ym(r.date, `${at} › date`);
+    image(r.photo, `${at} › photo`);
 });
 
 /* ── ui.js ── */

@@ -66,7 +66,9 @@
     /* ── Content loading ──
        Content lives in data/content/*.json and is edited from the Pages CMS dashboard.
        The files are merged into one PROFILE object used by the site and the CV. */
-    const CONTENT_FILES = ['profile', 'experience', 'projects', 'achievements', 'skills', 'education'];
+    // Files that may be missing (e.g. a section added later) fall back to an empty list.
+    const CONTENT_FILES = ['profile', 'experience', 'projects', 'achievements', 'skills', 'education', 'testimonials'];
+    const OPTIONAL_FILES = ['achievements', 'testimonials'];
 
     let contentPromise = null;
     function loadContent() {
@@ -76,9 +78,12 @@
             fetch(`${base}data/content/${name}.json`, { cache: 'no-cache' }).then(r => {
                 if (!r.ok) throw new Error(`${name}.json: HTTP ${r.status}`);
                 return r.json();
+            }).catch(err => {
+                if (OPTIONAL_FILES.includes(name)) { console.warn(err); return []; }
+                throw err;
             })
-        )).then(([profile, experience, projects, achievements, skills, education]) => {
-            window.PROFILE = { ...profile, ...skills, experience, projects, achievements, education };
+        )).then(([profile, experience, projects, achievements, skills, education, testimonials]) => {
+            window.PROFILE = { ...profile, ...skills, experience, projects, achievements, education, testimonials };
             return window.PROFILE;
         });
         return contentPromise;

@@ -281,3 +281,23 @@ content:
       - { name: icon, component: icon }
       - { name: hideFromCv, component: hide_cv }
       - { name: hideFromSite, component: hide_site }
+
+  # ═══════════════ التوصيات ═══════════════
+  - name: testimonials
+    label: 💬 التوصيات
+    description: توصيات LinkedIn أو آراء العملاء — تظهر في الموقع فقط (ليس في السيرة)
+    type: file
+    path: data/content/testimonials.json
+    format: json
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{name.ar} — {role.ar}"
+    fields:
+      - { name: name, label: الاسم, component: bi_required }
+      - { name: role, label: المسمى والجهة, component: bi }
+      - { name: text, label: نص التوصية, component: bi_text, required: true }
+      - { name: date, label: التاريخ, component: yearmonth }
+      - { name: photo, label: صورة الشخص, type: image, description: "اختياري — تظهر الأحرف الأولى إذا لم توجد صورة" }
+      - { name: url, label: رابط (مثل ملفه في LinkedIn), type: string }
+      - { name: hideFromSite, component: hide_site }

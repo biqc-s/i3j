@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         achievements: () => visible(P.achievements, 'site').length,
         skills:       () => visible(P.competencies, 'site').length || visible(P.certifications, 'site').length,
         education:    () => visible(P.education, 'site').length,
+        testimonials: () => visible(P.testimonials, 'site').length,
         contact:      () => true
     };
     const hasContent = key => !SECTION_HAS_CONTENT[key] || !!SECTION_HAS_CONTENT[key]();
@@ -147,6 +148,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 </article>`;
             }).join('');
             return wrap('achievements', `<div class="ach-grid">${cards}</div>`);
+        },
+
+        testimonials() {
+            const cards = visible(P.testimonials, 'site').map((r, i) => {
+                const name = t(r.name, lang);
+                const initials = name.split(/\s+/).filter(Boolean).slice(0, lang === 'ar' ? 1 : 2).map(w => w[0]).join('');
+                const avatar = r.photo
+                    ? `<img class="tst-avatar" src="${esc(asset(r.photo))}" alt="" loading="lazy">`
+                    : `<span class="tst-avatar" aria-hidden="true">${esc(initials)}</span>`;
+                const who = r.url
+                    ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(name)}</a>` : esc(name);
+                return `
+                <figure class="tst-card glass-card ${anim('tst-' + i)}">
+                    <i class="fas fa-quote-left tst-mark" aria-hidden="true"></i>
+                    <blockquote><p>${esc(t(r.text, lang))}</p></blockquote>
+                    <figcaption>
+                        ${avatar}
+                        <span class="tst-who">
+                            <strong>${who}</strong>
+                            <span>${esc(t(r.role, lang))}${r.date ? ' · ' + esc(num(formatMonth(r.date, lang), lang)) : ''}</span>
+                        </span>
+                    </figcaption>
+                </figure>`;
+            }).join('');
+            return wrap('testimonials', `<div class="tst-grid">${cards}</div>`);
         },
 
         skills() {

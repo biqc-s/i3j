@@ -35,6 +35,7 @@ window.UI = {
         projects:   { tag: { en: 'Projects', ar: 'المشاريع' }, title: [{ en: 'Key ', ar: 'أبرز ' }, { en: 'Projects', ar: 'المشاريع' }] },
         achievements: { tag: { en: 'Achievements', ar: 'الإنجازات' }, title: [{ en: 'Awards & ', ar: 'الجوائز ' }, { en: 'Achievements', ar: 'والإنجازات' }] },
         skills:     { tag: { en: 'Skills', ar: 'المهارات' },   title: [{ en: 'Expertise & ', ar: 'الخبرات ' }, { en: 'Credentials', ar: 'والمؤهلات' }] },
+        testimonials: { tag: { en: 'Recommendations', ar: 'التوصيات' }, title: [{ en: 'What People ', ar: 'ماذا ' }, { en: 'Say', ar: 'يقولون' }] },
         education:  { tag: { en: 'Education', ar: 'التعليم' }, title: [{ en: '', ar: '' }, { en: 'Education', ar: 'التعليم' }] }
     },
 
