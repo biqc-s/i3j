@@ -55,6 +55,7 @@ window.UI = {
         backToTop:    { en: 'Back to top', ar: 'العودة للأعلى' },
         close:        { en: 'Close', ar: 'إغلاق' },
         visit:        { en: 'Open link', ar: 'فتح الرابط' },
+        viewPdf:      { en: 'View PDF', ar: 'عرض الملف (PDF)' },
         loadError:    { en: 'Content could not be loaded. Please refresh the page.', ar: 'تعذّر تحميل المحتوى. يرجى تحديث الصفحة.' }
     },
 

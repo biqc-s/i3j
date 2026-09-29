@@ -10,7 +10,7 @@
    • every referenced image exists in the repository
 ════════════════════════════════════════════════════════════ */
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import vm from 'node:vm';
@@ -68,6 +68,18 @@ function image(value, path) {
     if (!existsSync(join(root, v.replace(/^\/+/, '')))) errors.push(`${path}: image not found in the repository (${v})`);
 }
 
+/** Attached PDF (dashboard "PDF file" field): must exist, be a .pdf, and stay reasonably small. */
+function pdf(value, path) {
+    const v = str(value);
+    if (!v || /^(https?:)?\/\//.test(v)) return;
+    const file = join(root, v.replace(/^\/+/, ''));
+    if (!existsSync(file)) { errors.push(`${path}: file not found in the repository (${v})`); return; }
+    if (!/\.pdf$/i.test(v)) errors.push(`${path}: only PDF files are allowed (${v})`);
+    const mb = statSync(file).size / 1024 / 1024;
+    if (mb > 20) errors.push(`${path}: file is ${mb.toFixed(1)} MB — keep PDFs under 20 MB (compress it first)`);
+    else if (mb > 5) warnings.push(`${path}: file is ${mb.toFixed(1)} MB — consider compressing it for faster loading`);
+}
+
 function list(items, path, fn) {
     (Array.isArray(items) ? items : []).forEach((item, i) => fn(item || {}, `${path}[${i + 1}]`));
 }
@@ -113,6 +125,7 @@ list(projects, 'projects', (pr, at) => {
     bi(pr.description, `${at} › description`);
     bi(pr.award, `${at} › award`);
     image(pr.image, `${at} › image`);
+    pdf(pr.file, `${at} › file`);
     list(pr.tags, `${at} › tags`, (x, a) => bi(x, a));
 });
 
@@ -123,6 +136,7 @@ list(achievements, 'achievements', (a, at) => {
     bi(a.description, `${at} › description`);
     ym(a.date, `${at} › date`);
     image(a.image, `${at} › image`);
+    pdf(a.file, `${at} › file`);
 });
 
 /* ── skills.json ── */
@@ -130,6 +144,7 @@ list(skills.competencies, 'skills › competencies', (c, at) => bi(c.name, at, {
 list(skills.certifications, 'skills › certifications', (c, at) => {
     bi(c.name, `${at} › name`, { required: true });
     bi(c.issuer, `${at} › issuer`);
+    pdf(c.file, `${at} › file`);
     if (str(c.year) && !/^\d{4}$/.test(str(c.year))) errors.push(`${at} › year: must be a 4-digit year`);
 });
 
@@ -137,6 +152,7 @@ list(skills.certifications, 'skills › certifications', (c, at) => {
 list(education, 'education', (ed, at) => {
     bi(ed.degree, `${at} › degree`, { required: true });
     bi(ed.school, `${at} › school`, { required: true });
+    pdf(ed.file, `${at} › file`);
     if (!ed.inProgress && !str(ed.year)) warnings.push(`${at}: set the graduation year or mark it "in progress"`);
 });
 

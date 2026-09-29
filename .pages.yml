@@ -5,10 +5,20 @@
 # ════════════════════════════════════════════════════════════
 
 media:
-  input: images          # مجلد الصور في المستودع
-  output: images         # المسار الذي يُكتب في البيانات ويقرؤه الموقع
-  categories: [image]
-  rename: safe           # أسماء ملفات آمنة للروابط
+  # الصور (الافتراضي لحقول الصور)
+  - name: images
+    label: الصور
+    input: images          # مجلد الصور في المستودع
+    output: images         # المسار الذي يُكتب في البيانات ويقرؤه الموقع
+    categories: [image]
+    rename: safe           # أسماء ملفات آمنة للروابط
+  # ملفات PDF (شهادات، خطابات، مستندات)
+  - name: files
+    label: ملفات PDF
+    input: files
+    output: files
+    extensions: [pdf]
+    rename: safe
 
 settings:
   content:
@@ -198,6 +208,7 @@ content:
       - { name: image, label: صورة المشروع, type: image, description: "اختياري — تظهر أعلى البطاقة ويمكن تكبيرها" }
       - { name: icon, component: icon, description: "تظهر إذا لم توجد صورة" }
       - { name: url, label: رابط خارجي, type: string, description: "اختياري" }
+      - { name: file, label: ملف PDF (اختياري), type: file, options: { media: files, extensions: [pdf] }, description: "⚠️ يصبح الملف عاماً لأي زائر — لا ترفع ملفاً فيه رقم الهوية أو بيانات خاصة" }
       - { name: tags, label: الوسوم, component: bi, list: true }
       - { name: award, label: الجائزة / الترشيح, component: bi, description: "اختياري — مثل: مرشح لجائزة" }
       - { name: featured, label: مشروع مميز (إطار ذهبي), type: boolean, default: false }
@@ -223,6 +234,7 @@ content:
       - { name: image, label: الصورة, type: image }
       - { name: icon, component: icon, description: "تظهر إذا لم توجد صورة (الافتراضي fa-trophy)" }
       - { name: url, label: رابط (خبر، شهادة، منشور), type: string }
+      - { name: file, label: ملف PDF (اختياري), type: file, options: { media: files, extensions: [pdf] }, description: "⚠️ يصبح الملف عاماً لأي زائر — لا ترفع ملفاً فيه رقم الهوية أو بيانات خاصة" }
       - { name: hideFromCv, component: hide_cv }
       - { name: hideFromSite, component: hide_site }
 
@@ -259,6 +271,7 @@ content:
           - { name: issuer, label: الجهة المانحة, component: bi }
           - { name: year, label: السنة, type: number }
           - { name: url, label: رابط التحقق, type: string, description: "اختياري" }
+          - { name: file, label: ملف PDF (اختياري), type: file, options: { media: files, extensions: [pdf] }, description: "⚠️ يصبح الملف عاماً لأي زائر — لا ترفع ملفاً فيه رقم الهوية أو بيانات خاصة" }
           - { name: icon, component: icon }
           - { name: hideFromCv, component: hide_cv }
           - { name: hideFromSite, component: hide_site }
@@ -278,6 +291,7 @@ content:
       - { name: school, label: الجامعة / الجهة, component: bi_required }
       - { name: year, label: سنة التخرج, type: number }
       - { name: inProgress, label: قيد الدراسة حالياً, type: boolean, default: false }
+      - { name: file, label: ملف PDF (اختياري), type: file, options: { media: files, extensions: [pdf] }, description: "⚠️ يصبح الملف عاماً لأي زائر — لا ترفع ملفاً فيه رقم الهوية أو بيانات خاصة" }
       - { name: icon, component: icon }
       - { name: hideFromCv, component: hide_cv }
       - { name: hideFromSite, component: hide_site }

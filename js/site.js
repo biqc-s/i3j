@@ -51,6 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const icon = (name, extra = '') => `<i class="fas ${esc(name)} ${extra}" aria-hidden="true"></i>`;
 
+    /** "View PDF" button for an attached file (certificates, achievements, projects, education). */
+    const pdfLink = (file, cls = '') => file
+        ? `<a class="pdf-link ${cls}" href="${esc(asset(file))}" target="_blank" rel="noopener">${icon('fa-file-pdf')}<span>${esc(t(UI.labels.viewPdf, lang))}</span></a>`
+        : '';
+
     function anim(key) {
         return `anim${revealed.has(key) ? ' visible' : ''}" data-anim="${key}`;
     }
@@ -128,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3>${esc(t(pr.title, lang))}</h3>
                     <p>${t(pr.description, lang)}</p>
                     <div class="proj-tags">${tags}${award}</div>
+                    ${pdfLink(pr.file)}
                     ${link}
                 </article>`;
             }).join('');
@@ -152,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${meta.length ? `<p class="ach-meta">${meta.map(esc).join(' · ')}</p>` : ''}
                         <h3>${esc(title)}</h3>
                         ${t(a.description, lang) ? `<p>${t(a.description, lang)}</p>` : ''}
-                        ${link}
+                        <div class="ach-actions">${link}${pdfLink(a.file)}</div>
                     </div>
                 </article>`;
             }).join('');
@@ -195,6 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             ? `<a class="cert-name" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(t(c.name, lang))} ${icon('fa-arrow-up-right-from-square', 'cert-ext')}</a>`
                             : `<span class="cert-name">${esc(t(c.name, lang))}</span>`}
                         <span class="cert-from">${esc(t(c.issuer, lang))}${c.year ? ' · ' + num(c.year, lang) : ''}</span>
+                        ${pdfLink(c.file, 'pdf-link-sm')}
                     </div>
                 </li>`).join('');
             return wrap('skills', `
@@ -221,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${status}
                     <h3>${esc(t(ed.degree, lang))}</h3>
                     <p>${esc(t(ed.school, lang))}</p>
+                    ${pdfLink(ed.file)}
                 </article>`;
             }).join('');
             return wrap('education', `<div class="edu-grid">${cards}</div>`);
