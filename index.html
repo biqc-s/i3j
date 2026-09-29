@@ -95,8 +95,8 @@
                 <div class="ring ring-1"></div>
                 <div class="ring ring-2"></div>
                 <div class="ring ring-3"></div>
-                <div class="avatar-core">
-                    <span class="avatar-initials" id="avatarInitials">SJ</span>
+                <div class="avatar-core" id="avatarCore">
+                    <span class="avatar-initials">SJ</span>
                     <div class="avatar-glow"></div>
                 </div>
                 <div id="heroBadges"></div>
@@ -109,10 +109,12 @@
             </div>
         </section>
 
-        <!-- Sections below are rendered from data/profile.js by js/site.js -->
-        <section id="about"      data-section="about"></section>
-        <section id="experience" data-section="experience"></section>
-        <section id="projects"   data-section="projects"></section>
+        <!-- Sections below are rendered from data/content/*.json by js/site.js
+             (edit the content from the Pages CMS dashboard — see README) -->
+        <section id="about"        data-section="about"></section>
+        <section id="experience"   data-section="experience"></section>
+        <section id="projects"     data-section="projects"></section>
+        <section id="achievements" data-section="achievements" hidden></section>
         <section id="skills"     data-section="skills"></section>
         <section id="education"  data-section="education"></section>
 
@@ -140,7 +142,13 @@
         <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
 
-    <script src="data/profile.js"></script>
+    <!-- Image viewer for project / achievement photos -->
+    <dialog class="lightbox" id="lightbox">
+        <button type="button" class="lightbox-close" data-i18n-aria="labels.close"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+        <img id="lightboxImg" src="data:," alt="">
+        <p id="lightboxCaption"></p>
+    </dialog>
+
     <script src="data/ui.js"></script>
     <script src="js/core.js"></script>
     <script src="js/cv.js"></script>

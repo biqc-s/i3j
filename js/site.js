@@ -1,6 +1,6 @@
 /* ════════════════════════════════════════════════════════════
    PORTFOLIO SCRIPT — Saeed Ahmad Jahash
-   Renders every section from data/profile.js + data/ui.js, then wires up:
+   Renders every section from data/content/*.json + data/ui.js, then wires up:
    language toggle (EN/AR), typewriter, reveal animations, custom cursor,
    mobile menu, active nav, header/progress, CV download menu, JSON-LD.
 ════════════════════════════════════════════════════════════ */
@@ -8,9 +8,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    const { t, num, esc, plain, visible, formatRange, detectLang, saveLang } = window.Core;
-    const P  = window.PROFILE;
+    const { t, num, esc, plain, visible, formatRange, formatMonth, detectLang, saveLang, loadContent, asset } = window.Core;
     const UI = window.UI;
+    let P = {}; // filled from data/content/*.json at boot
 
     const $  = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -24,7 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
        RENDERING
     ════════════════════════════════════════════════════════ */
 
-    const SECTION_ORDER = ['about', 'experience', 'projects', 'skills', 'education'];
+    // A section with no content (e.g. no achievements yet) is hidden, together with its nav link.
+    const SECTION_HAS_CONTENT = {
+        about:        () => (P.about || []).length || visible(P.highlights, 'site').length,
+        experience:   () => visible(P.experience, 'site').length,
+        projects:     () => visible(P.projects, 'site').length,
+        achievements: () => visible(P.achievements, 'site').length,
+        skills:       () => visible(P.competencies, 'site').length || visible(P.certifications, 'site').length,
+        education:    () => visible(P.education, 'site').length,
+        contact:      () => true
+    };
+    const hasContent = key => !SECTION_HAS_CONTENT[key] || !!SECTION_HAS_CONTENT[key]();
+    const shownSections = () => Array.from(document.querySelectorAll('[data-section]'))
+        .map(s => s.dataset.section).filter(hasContent);
     const revealed = new Set(); // keys of .anim elements already shown — survives language switches
 
     const icon = (name, extra = '') => `<i class="fas ${esc(name)} ${extra}" aria-hidden="true"></i>`;
@@ -35,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function sectionHeader(key) {
         const s = UI.sections[key];
-        const n = num(String(SECTION_ORDER.indexOf(key) + 1).padStart(2, '0'), lang);
+        const n = num(String(shownSections().indexOf(key) + 1).padStart(2, '0'), lang);
         const [plainPart, goldPart] = s.title;
         return `
         <div class="section-header">
@@ -92,10 +104,15 @@ document.addEventListener('DOMContentLoaded', () => {
         projects() {
             const cards = visible(P.projects, 'site').map((pr, i) => {
                 const tags = (pr.tags || []).map(tag => `<span>${esc(t(tag, lang))}</span>`).join('');
-                const award = pr.award ? `<span class="tag-award">🏆 ${esc(t(pr.award, lang))}</span>` : '';
+                const award = t(pr.award, lang) ? `<span class="tag-award">🏆 ${esc(t(pr.award, lang))}</span>` : '';
                 const link = pr.url ? `<a class="proj-link" href="${esc(pr.url)}" target="_blank" rel="noopener" aria-label="${esc(t(pr.title, lang))}">${icon('fa-arrow-up-right-from-square')}</a>` : '';
+                const img = pr.image
+                    ? `<button type="button" class="card-media" data-lightbox="${esc(asset(pr.image))}" data-caption="${esc(t(pr.title, lang))}">
+                           <img src="${esc(asset(pr.image))}" alt="${esc(t(pr.title, lang))}" loading="lazy" decoding="async">
+                       </button>` : '';
                 return `
-                <article class="proj-card glass-card ${pr.featured ? 'proj-featured ' : ''}${anim('proj-' + i)}">
+                <article class="proj-card glass-card ${pr.featured ? 'proj-featured ' : ''}${pr.image ? 'has-media ' : ''}${anim('proj-' + i)}">
+                    ${img}
                     <span class="proj-num" aria-hidden="true">${num(String(i + 1).padStart(2, '0'), lang)}</span>
                     <div class="proj-icon">${icon(pr.icon || 'fa-cube')}</div>
                     <h3>${esc(t(pr.title, lang))}</h3>
@@ -107,6 +124,31 @@ document.addEventListener('DOMContentLoaded', () => {
             return wrap('projects', `<div class="projects-grid">${cards}</div>`);
         },
 
+        achievements() {
+            const cards = visible(P.achievements, 'site').map((a, i) => {
+                const title = t(a.title, lang);
+                const meta  = [t(a.issuer, lang), a.date ? num(formatMonth(a.date, lang), lang) : ''].filter(Boolean);
+                const media = a.image
+                    ? `<button type="button" class="card-media" data-lightbox="${esc(asset(a.image))}" data-caption="${esc(title)}">
+                           <img src="${esc(asset(a.image))}" alt="${esc(title)}" loading="lazy" decoding="async">
+                       </button>`
+                    : `<div class="ach-icon">${icon(a.icon || 'fa-trophy')}</div>`;
+                const link = a.url
+                    ? `<a class="ach-link" href="${esc(a.url)}" target="_blank" rel="noopener">${esc(t(UI.labels.visit, lang))} ${icon('fa-arrow-up-right-from-square')}</a>` : '';
+                return `
+                <article class="ach-card glass-card ${a.image ? 'has-media ' : ''}${anim('ach-' + i)}">
+                    ${media}
+                    <div class="ach-body">
+                        ${meta.length ? `<p class="ach-meta">${meta.map(esc).join(' · ')}</p>` : ''}
+                        <h3>${esc(title)}</h3>
+                        ${t(a.description, lang) ? `<p>${t(a.description, lang)}</p>` : ''}
+                        ${link}
+                    </div>
+                </article>`;
+            }).join('');
+            return wrap('achievements', `<div class="ach-grid">${cards}</div>`);
+        },
+
         skills() {
             const comps = visible(P.competencies, 'site').map(c => `
                 <li class="comp-item"><div class="comp-icon">${icon(c.icon)}</div><span>${esc(t(c.name, lang))}</span></li>`).join('');
@@ -114,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <li class="cert-item">
                     <div class="cert-badge">${icon(c.icon || 'fa-certificate')}</div>
                     <div class="cert-body">
-                        <span class="cert-name">${esc(t(c.name, lang))}</span>
+                        ${c.url
+                            ? `<a class="cert-name" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(t(c.name, lang))} ${icon('fa-arrow-up-right-from-square', 'cert-ext')}</a>`
+                            : `<span class="cert-name">${esc(t(c.name, lang))}</span>`}
                         <span class="cert-from">${esc(t(c.issuer, lang))}${c.year ? ' · ' + num(c.year, lang) : ''}</span>
                     </div>
                 </li>`).join('');
@@ -149,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function renderNav() {
-        const links = Object.keys(UI.nav).map(key => {
+        const links = Object.keys(UI.nav).filter(hasContent).map(key => {
             const cls = key === 'contact' ? ' class="btn-nav"' : '';
             return `<li><a href="#${key}"${cls}>${esc(t(UI.nav[key], lang))}</a></li>`;
         }).join('');
@@ -157,14 +201,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderHero() {
-        const [first, middle, last] = t(P.person.nameLines, lang) || [];
+        const words = t(P.person.name, lang).trim().split(/\s+/);
+        const first = words.length > 1 ? words[0] : '';
+        const last = words[words.length - 1] || '';
+        const middle = words.slice(1, -1).join(' ');
         $('#heroName').innerHTML = `
             <span class="name-line-1">${esc(first || '')}</span>
             <span class="name-line-2">${esc(middle || '')} <em class="name-accent">${esc(last || '')}</em></span>`;
         $('#heroName').setAttribute('aria-label', t(P.person.name, lang));
 
         $('#heroAvailable').hidden = P.person.available === false;
-        $('#avatarInitials').textContent = P.person.initials || '';
+        const photo = asset(P.person.photo);
+        $('#avatarCore').classList.toggle('has-photo', !!photo);
+        $('#avatarCore').innerHTML = photo
+            ? `<img src="${esc(photo)}" alt="${esc(t(P.person.name, lang))}" class="avatar-photo"><div class="avatar-glow"></div>`
+            : `<span class="avatar-initials">${esc(P.person.initials || '')}</span><div class="avatar-glow"></div>`;
 
         const autoValue = {
             projects:       () => visible(P.projects, 'site').length,
@@ -301,13 +352,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderAll() {
+        if (!P.person) { renderMeta(); applyStaticI18n(); return; } // content not loaded yet
         renderMeta();
         applyStaticI18n();
         renderNav();
         renderHero();
         $$('[data-section]').forEach(sec => {
-            const fn = renderers[sec.dataset.section];
-            if (fn) sec.innerHTML = fn();
+            const key = sec.dataset.section;
+            const fn = renderers[key];
+            sec.hidden = !hasContent(key);
+            if (fn) sec.innerHTML = sec.hidden ? '' : fn();
         });
         renderFooter();
         renderCvMenus();
@@ -469,6 +523,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (openHost) $('.btn-cv', openHost)?.focus();
     });
 
+    /* ════════════════════════════════════════════════════════
+       IMAGE LIGHTBOX (project & achievement images)
+    ════════════════════════════════════════════════════════ */
+    const lightbox = $('#lightbox');
+    document.addEventListener('click', e => {
+        const trigger = e.target.closest('[data-lightbox]');
+        if (!trigger || !lightbox) return;
+        $('#lightboxImg').src = trigger.dataset.lightbox;
+        $('#lightboxImg').alt = trigger.dataset.caption || '';
+        $('#lightboxCaption').textContent = trigger.dataset.caption || '';
+        if (typeof lightbox.showModal === 'function') lightbox.showModal();
+        else window.open(trigger.dataset.lightbox, '_blank', 'noopener');
+    });
+    lightbox?.addEventListener('click', e => {
+        if (e.target === lightbox || e.target.closest('.lightbox-close')) lightbox.close();
+    });
+
     // Ctrl+P / browser print → CV in the language currently shown on the site
     window.CV.bindBrowserPrint(() => lang);
 
@@ -479,7 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let twIndex = 0, twChar = 0, twDeleting = false, twTimeout = null;
 
     function typeWriter() {
-        const strings = t(P.titles, lang) || [];
+        const strings = (P.titles || []).map(x => t(x, lang)).filter(Boolean);
         if (!strings.length) return;
         const current = strings[twIndex % strings.length];
 
@@ -529,15 +600,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#langToggle').addEventListener('click', () => setLang(lang === 'en' ? 'ar' : 'en'));
 
-    /* ── Boot ── */
-    renderAll();
-    renderJsonLd();
-    restartTypewriter();
+    /* ── Boot: load content, then render ── */
     onScroll();
+    loadContent().then(data => {
+        P = data;
+        renderAll();
+        renderJsonLd();
+        restartTypewriter();
+        document.body.classList.add('content-ready');
 
-    // Honour deep links (#projects) after content has been rendered
-    if (location.hash) {
-        const target = document.getElementById(location.hash.slice(1));
-        if (target) requestAnimationFrame(() => target.scrollIntoView());
-    }
+        // Honour deep links (#projects) after content has been rendered
+        if (location.hash) {
+            const target = document.getElementById(location.hash.slice(1));
+            if (target) requestAnimationFrame(() => target.scrollIntoView());
+        }
+    }).catch(err => {
+        console.error(err);
+        renderMeta();
+        applyStaticI18n();
+        $('#main').insertAdjacentHTML('beforeend', `<p class="noscript" role="alert">${esc(t(UI.labels.loadError, lang))}</p>`);
+    });
 });

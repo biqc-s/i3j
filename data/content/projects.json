@@ -1,0 +1,182 @@
+[
+  {
+    "title": {
+      "en": "Tourism Inspector Training Program",
+      "ar": "برنامج تدريب مفتشي السياحة"
+    },
+    "description": {
+      "en": "Designed and led a national training initiative for Ministry of Tourism inspectors using a personalized, data-driven approach.",
+      "ar": "صمّم وقاد مبادرة تدريبية وطنية لمفتشي وزارة السياحة باستخدام نهج شخصي قائم على البيانات."
+    },
+    "icon": "fa-chalkboard-teacher",
+    "image": "",
+    "url": "",
+    "tags": [
+      {
+        "en": "Training",
+        "ar": "تدريب"
+      },
+      {
+        "en": "Government",
+        "ar": "حكومي"
+      }
+    ],
+    "award": {
+      "en": "",
+      "ar": ""
+    },
+    "featured": false,
+    "hideFromCv": false,
+    "hideFromSite": false
+  },
+  {
+    "title": {
+      "en": "Ajaweed 3: Bottleneck Initiative",
+      "ar": "أجاويد 3: مبادرة عنق الزجاجة"
+    },
+    "description": {
+      "en": "Spearheaded a media tracking and evaluation system. Developed dashboards and synthesized field data into actionable insights.",
+      "ar": "قاد نظام تتبع وتقييم إعلامي، وطوّر لوحات بيانات وحوّل البيانات الميدانية إلى رؤى قابلة للتنفيذ."
+    },
+    "icon": "fa-chart-line",
+    "image": "",
+    "url": "",
+    "tags": [
+      {
+        "en": "Analytics",
+        "ar": "تحليلات"
+      },
+      {
+        "en": "Media",
+        "ar": "إعلام"
+      }
+    ],
+    "award": {
+      "en": "",
+      "ar": ""
+    },
+    "featured": false,
+    "hideFromCv": false,
+    "hideFromSite": false
+  },
+  {
+    "title": {
+      "en": "ERP-Driven Operations",
+      "ar": "العمليات المدعومة بأنظمة ERP"
+    },
+    "description": {
+      "en": "Architected smart business workflows using ERP platforms (Daftra) for a commercial laundromat and a regional cooperative.",
+      "ar": "صمّم سير عمل تجاري ذكي باستخدام منصات ERP (دفترة) لمغسلة تجارية وجمعية تعاونية إقليمية."
+    },
+    "icon": "fa-network-wired",
+    "image": "",
+    "url": "",
+    "tags": [
+      {
+        "en": "ERP",
+        "ar": "ERP"
+      },
+      {
+        "en": "Operations",
+        "ar": "عمليات"
+      }
+    ],
+    "award": {
+      "en": "",
+      "ar": ""
+    },
+    "featured": false,
+    "hideFromCv": false,
+    "hideFromSite": false
+  },
+  {
+    "title": {
+      "en": "Smart Membership Cards",
+      "ar": "بطاقات العضوية الذكية"
+    },
+    "description": {
+      "en": "Designed NFC, QR and barcode-enabled cards integrating identity, access and digital governance features.",
+      "ar": "صمّم بطاقات تدعم NFC وQR والباركود تجمع بين الهوية والوصول وميزات الحوكمة الرقمية."
+    },
+    "icon": "fa-id-card",
+    "image": "",
+    "url": "",
+    "tags": [
+      {
+        "en": "NFC",
+        "ar": "NFC"
+      },
+      {
+        "en": "Digital ID",
+        "ar": "هوية رقمية"
+      }
+    ],
+    "award": {
+      "en": "",
+      "ar": ""
+    },
+    "featured": false,
+    "hideFromCv": false,
+    "hideFromSite": false
+  },
+  {
+    "title": {
+      "en": "Ghadah – Virtual World",
+      "ar": "غادة – العالم الافتراضي"
+    },
+    "description": {
+      "en": "Award-nominated VR experience for the Museums Commission, combining diverse aesthetics and regional storytelling in Unreal Engine.",
+      "ar": "تجربة واقع افتراضي مرشحة لجائزة لصالح هيئة المتاحف، تجمع جماليات متنوعة وسرداً إقليمياً باستخدام Unreal Engine."
+    },
+    "icon": "fa-vr-cardboard",
+    "image": "",
+    "url": "",
+    "tags": [
+      {
+        "en": "Unreal Engine",
+        "ar": "Unreal Engine"
+      },
+      {
+        "en": "VR / AR",
+        "ar": "VR / AR"
+      }
+    ],
+    "award": {
+      "en": "Award-Nominated",
+      "ar": "مرشح لجائزة"
+    },
+    "featured": true,
+    "hideFromCv": false,
+    "hideFromSite": false
+  },
+  {
+    "title": {
+      "en": "SeedLTech – Coffee Innovation",
+      "ar": "SeedLTech – ابتكار القهوة"
+    },
+    "description": {
+      "en": "Rural-tech initiative combining coffee seedling traceability with UV leaf scanning and mixed reality interfaces.",
+      "ar": "مبادرة تقنية ريفية تجمع تتبع شتلات القهوة مع فحص الأوراق بالأشعة فوق البنفسجية وواجهات الواقع المختلط."
+    },
+    "icon": "fa-seedling",
+    "image": "",
+    "url": "",
+    "tags": [
+      {
+        "en": "AgriTech",
+        "ar": "تقنية زراعية"
+      },
+      {
+        "en": "Mixed Reality",
+        "ar": "واقع مختلط"
+      }
+    ],
+    "award": {
+      "en": "",
+      "ar": ""
+    },
+    "featured": false,
+    "hideFromCv": false,
+    "hideFromSite": false
+  }
+]

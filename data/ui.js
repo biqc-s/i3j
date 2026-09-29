@@ -1,6 +1,7 @@
 /* ════════════════════════════════════════════════════════════
    UI LABELS — نصوص الواجهة الثابتة (عناوين الأقسام، الأزرار، عناوين السيرة)
-   نادراً ما تحتاج لتعديل هذا الملف. المحتوى الشخصي في data/profile.js
+   نادراً ما تحتاج لتعديل هذا الملف. المحتوى الشخصي في data/content/*.json
+   ويُعدَّل من لوحة التحكم (Pages CMS)
 ════════════════════════════════════════════════════════════ */
 
 window.UI = {
@@ -16,6 +17,7 @@ window.UI = {
         about:      { en: 'About', ar: 'نبذة' },
         experience: { en: 'Experience', ar: 'الخبرة' },
         projects:   { en: 'Projects', ar: 'المشاريع' },
+        achievements: { en: 'Achievements', ar: 'الإنجازات' },
         skills:     { en: 'Skills', ar: 'المهارات' },
         education:  { en: 'Education', ar: 'التعليم' },
         contact:    { en: 'Contact', ar: 'تواصل' }
@@ -31,6 +33,7 @@ window.UI = {
         about:      { tag: { en: 'About', ar: 'نبذة' },       title: [{ en: 'Who is ', ar: 'من هو ' }, { en: 'Saeed?', ar: 'سعيد؟' }] },
         experience: { tag: { en: 'Experience', ar: 'الخبرة' }, title: [{ en: 'Professional ', ar: 'المسيرة ' }, { en: 'Odyssey', ar: 'المهنية' }] },
         projects:   { tag: { en: 'Projects', ar: 'المشاريع' }, title: [{ en: 'Key ', ar: 'أبرز ' }, { en: 'Projects', ar: 'المشاريع' }] },
+        achievements: { tag: { en: 'Achievements', ar: 'الإنجازات' }, title: [{ en: 'Awards & ', ar: 'الجوائز ' }, { en: 'Achievements', ar: 'والإنجازات' }] },
         skills:     { tag: { en: 'Skills', ar: 'المهارات' },   title: [{ en: 'Expertise & ', ar: 'الخبرات ' }, { en: 'Credentials', ar: 'والمؤهلات' }] },
         education:  { tag: { en: 'Education', ar: 'التعليم' }, title: [{ en: '', ar: '' }, { en: 'Education', ar: 'التعليم' }] }
     },
@@ -48,7 +51,10 @@ window.UI = {
         toggleLang:   { en: 'Switch to Arabic', ar: 'التبديل إلى الإنجليزية' },
         menu:         { en: 'Menu', ar: 'القائمة' },
         skip:         { en: 'Skip to content', ar: 'تخطَّ إلى المحتوى' },
-        backToTop:    { en: 'Back to top', ar: 'العودة للأعلى' }
+        backToTop:    { en: 'Back to top', ar: 'العودة للأعلى' },
+        close:        { en: 'Close', ar: 'إغلاق' },
+        visit:        { en: 'Open link', ar: 'فتح الرابط' },
+        loadError:    { en: 'Content could not be loaded. Please refresh the page.', ar: 'تعذّر تحميل المحتوى. يرجى تحديث الصفحة.' }
     },
 
     contact: {
@@ -76,6 +82,7 @@ window.UI = {
         tools:          { en: 'Technical Skills', ar: 'المهارات التقنية' },
         experience:     { en: 'Work Experience', ar: 'الخبرة العملية' },
         projects:       { en: 'Key Projects', ar: 'أبرز المشاريع' },
+        achievements:   { en: 'Awards & Achievements', ar: 'الجوائز والإنجازات' },
         education:      { en: 'Education', ar: 'التعليم' },
         certifications: { en: 'Certifications', ar: 'الشهادات المهنية' },
         languages:      { en: 'Languages', ar: 'اللغات' },

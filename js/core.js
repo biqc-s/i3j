@@ -16,7 +16,7 @@
     function t(value, lang) {
         if (value == null) return '';
         if (typeof value === 'string' || typeof value === 'number') return String(value);
-        return value[lang] ?? value.en ?? '';
+        return value[lang] || value.en || '';
     }
 
     /** Convert Western digits to Arabic-Indic digits (used for decorative text on the website only). */
@@ -57,9 +57,38 @@
         return tpl.content.textContent.replace(/\s+/g, ' ').trim();
     }
 
-    /** Filter list items by visibility flags: item.site === false / item.cv === false. */
+    /** Filter list items by the dashboard's visibility switches (hideFromSite / hideFromCv). */
     function visible(list, target) {
-        return (list || []).filter(item => item && item[target] !== false);
+        const flag = target === 'cv' ? 'hideFromCv' : 'hideFromSite';
+        return (list || []).filter(item => item && !item[flag]);
+    }
+
+    /* ── Content loading ──
+       Content lives in data/content/*.json and is edited from the Pages CMS dashboard.
+       The files are merged into one PROFILE object used by the site and the CV. */
+    const CONTENT_FILES = ['profile', 'experience', 'projects', 'achievements', 'skills', 'education'];
+
+    let contentPromise = null;
+    function loadContent() {
+        if (contentPromise) return contentPromise;
+        const base = document.querySelector('script[src$="js/core.js"]')?.src.replace(/js\/core\.js.*$/, '') || '';
+        contentPromise = Promise.all(CONTENT_FILES.map(name =>
+            fetch(`${base}data/content/${name}.json`, { cache: 'no-cache' }).then(r => {
+                if (!r.ok) throw new Error(`${name}.json: HTTP ${r.status}`);
+                return r.json();
+            })
+        )).then(([profile, experience, projects, achievements, skills, education]) => {
+            window.PROFILE = { ...profile, ...skills, experience, projects, achievements, education };
+            return window.PROFILE;
+        });
+        return contentPromise;
+    }
+
+    /** Resolve an image path from the content files (relative to the site root, or absolute URL). */
+    function asset(path) {
+        if (!path) return '';
+        if (/^(https?:)?\/\//.test(path) || path.startsWith('data:')) return path;
+        return path.replace(/^\/+/, '');
     }
 
     /** Resolve the preferred language: ?lang= → saved choice → browser language → English. */
@@ -80,5 +109,5 @@
         try { localStorage.setItem('lang', lang); } catch (_) {}
     }
 
-    window.Core = { LANGS, t, num, arDigits, formatMonth, formatRange, esc, plain, visible, detectLang, saveLang };
+    window.Core = { LANGS, t, num, arDigits, formatMonth, formatRange, esc, plain, visible, detectLang, saveLang, loadContent, asset };
 })();
