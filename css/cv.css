@@ -1,0 +1,145 @@
+/* ════════════════════════════════════════════════════════════
+   ATS CV STYLES
+   Plain, single-column, black-on-white, system fonts.
+   Shared by cv.html (screen + print) and index.html (print only).
+════════════════════════════════════════════════════════════ */
+
+@page {
+    size: A4;
+    margin: 14mm 15mm;
+}
+
+.cv {
+    --cv-ink:    #111;
+    --cv-muted:  #444;
+    --cv-rule:   #b9b9b9;
+    --cv-accent: #1f3a5f;
+
+    color: var(--cv-ink);
+    background: #fff;
+    font-family: Calibri, Carlito, Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    text-align: start;
+}
+.cv[lang="ar"] {
+    font-family: 'Segoe UI', Tahoma, Arial, 'Noto Sans Arabic', 'Cairo', sans-serif;
+    font-size: 10pt;
+    line-height: 1.5;
+}
+.cv[lang="ar"] .cv-section { margin-top: 8pt; }
+.cv[lang="ar"] .cv-entry { margin-bottom: 5pt; }
+.cv[lang="ar"] li { margin-bottom: 0.5pt; }
+
+.cv * { margin: 0; padding: 0; box-sizing: border-box; }
+.cv a { color: inherit; text-decoration: none; }
+
+/* Header */
+.cv-header {
+    text-align: center;
+    padding-bottom: 8pt;
+    margin-bottom: 4pt;
+    border-bottom: 1.5pt solid var(--cv-accent);
+}
+.cv-name {
+    font-family: inherit;
+    font-size: 21pt;
+    font-weight: 700;
+    letter-spacing: 0.5pt;
+    line-height: 1.2;
+    color: var(--cv-accent);
+    text-transform: uppercase;
+}
+.cv[lang="ar"] .cv-name { letter-spacing: 0; text-transform: none; }
+.cv-headline {
+    font-size: 11pt;
+    font-weight: 600;
+    margin-top: 2pt;
+}
+.cv-contact {
+    font-size: 9.5pt;
+    color: var(--cv-muted);
+    margin-top: 4pt;
+}
+.cv-contact a, .cv-contact span { unicode-bidi: isolate; }
+.cv-sep { color: var(--cv-rule); }
+
+/* Sections */
+.cv-section { margin-top: 10pt; }
+.cv-section > h2 {
+    font-family: inherit;
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: var(--cv-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.8pt;
+    border-bottom: 0.75pt solid var(--cv-rule);
+    padding-bottom: 2pt;
+    margin-bottom: 5pt;
+    break-after: avoid;
+    page-break-after: avoid;
+}
+.cv[lang="ar"] .cv-section > h2 { letter-spacing: 0; text-transform: none; font-size: 12pt; }
+
+.cv-section > p { text-align: justify; }
+.cv[lang="ar"] .cv-section > p { text-align: start; }
+
+.cv-inline { line-height: 1.7; }
+.cv-inline .cv-sep { padding: 0 1pt; }
+
+/* Entries (jobs, projects, education) */
+.cv-entry {
+    margin-bottom: 7pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.cv-entry:last-child { margin-bottom: 0; }
+.cv-entry-compact { margin-bottom: 5pt; }
+
+.cv-entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10pt;
+}
+.cv-entry h3 {
+    font-family: inherit;
+    font-size: 10.8pt;
+    font-weight: 700;
+    line-height: 1.35;
+}
+.cv-date {
+    font-size: 9.8pt;
+    font-weight: 600;
+    color: var(--cv-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.cv-org {
+    font-style: italic;
+    color: var(--cv-muted);
+}
+.cv[lang="ar"] .cv-org { font-style: normal; }
+
+.cv ul {
+    list-style: disc;
+    padding-inline-start: 14pt;
+    margin-top: 2pt;
+}
+.cv li { margin-bottom: 1.5pt; }
+.cv li::marker { color: var(--cv-muted); }
+
+/* ── Hidden print root on the main website ── */
+.cv-print-root { display: none; }
+
+@media print {
+    body.has-cv-print > *:not(.cv-print-root) { display: none !important; }
+    body.has-cv-print {
+        background: #fff !important;
+        cursor: auto !important;
+    }
+    body.has-cv-print .cv-print-root { display: block !important; }
+
+    .cv a[href]::after { content: none !important; }
+    html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

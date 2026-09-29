@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saeed-Ahmad-Jahash-CV</title>
+    <meta name="description" content="ATS-friendly CV of Saeed Ahmad Jahash in English and Arabic — السيرة الذاتية لسعيد أحمد جهاش بالعربية والإنجليزية.">
+    <meta name="theme-color" content="#05050c">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="canonical" href="https://i3j.io/cv.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/cv.css">
+    <style>
+        :root { color-scheme: light; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: #e9ebf0;
+            font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, Arial, sans-serif;
+        }
+
+        /* Toolbar (screen only) */
+        .cv-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 16px;
+            background: #05050c;
+            color: #eaeaf4;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+        }
+        .cv-toolbar-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .cv-toolbar a, .cv-toolbar button {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            color: inherit;
+            text-decoration: none;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 999px;
+            padding: 7px 14px;
+            cursor: pointer;
+            transition: background .2s, border-color .2s, color .2s;
+        }
+        .cv-toolbar a:hover, .cv-toolbar button:hover { border-color: #d4af37; }
+        .cv-toolbar button:focus-visible, .cv-toolbar a:focus-visible { outline: 2px solid #d4af37; outline-offset: 2px; }
+        .cv-toolbar .primary { background: #d4af37; border-color: #d4af37; color: #000; }
+        .cv-toolbar .primary:hover { background: #f0cc55; }
+        .cv-lang-switch { display: inline-flex; padding: 3px; gap: 3px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); }
+        .cv-lang-switch button { border: none; background: transparent; padding: 5px 13px; }
+        .cv-lang-switch button.active { background: #d4af37; color: #000; }
+        html[dir="rtl"] .flip-rtl { transform: scaleX(-1); }
+        .cv-toolbar .copied { border-color: #4fc3f7; color: #4fc3f7; }
+        .cv-lang-label { font-size: 13px; color: #9898b0; }
+
+        .cv-hint {
+            max-width: 210mm;
+            margin: 14px auto 0;
+            padding: 0 16px;
+            font-size: 13px;
+            color: #555;
+            text-align: center;
+        }
+
+        /* A4 sheet preview */
+        .cv-sheet {
+            width: 210mm;
+            max-width: calc(100% - 32px);
+            min-height: 297mm;
+            margin: 14px auto 40px;
+            padding: 14mm 15mm;
+            background: #fff;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        @media (max-width: 640px) {
+            .cv-sheet { min-height: 0; padding: 22px 18px; }
+            .cv-toolbar { justify-content: center; }
+            .cv-toolbar .label-optional { display: none; }
+        }
+
+        @media print {
+            body { background: #fff; }
+            .cv-toolbar, .cv-hint { display: none !important; }
+            .cv-sheet { width: auto; max-width: none; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+        }
+    </style>
+</head>
+<body data-page="cv">
+
+    <nav class="cv-toolbar" aria-label="CV tools">
+        <div class="cv-toolbar-group">
+            <a href="index.html"><i class="fas fa-arrow-left flip-rtl" aria-hidden="true"></i><span data-ui="cv.toolbar.back">Back to website</span></a>
+        </div>
+        <div class="cv-toolbar-group">
+            <span class="cv-lang-label label-optional" data-ui="cv.toolbar.language">CV language</span>
+            <div class="cv-lang-switch" role="group">
+                <button type="button" class="cv-lang-btn" data-lang="en" lang="en">English</button>
+                <button type="button" class="cv-lang-btn" data-lang="ar" lang="ar">العربية</button>
+            </div>
+            <button type="button" id="cvCopy"><i class="fas fa-link" aria-hidden="true"></i><span data-ui="cv.toolbar.copy">Copy link</span></button>
+            <button type="button" id="cvPrint" class="primary"><i class="fas fa-file-pdf" aria-hidden="true"></i><span data-ui="cv.toolbar.print">Print / Save as PDF</span></button>
+        </div>
+    </nav>
+
+    <p class="cv-hint" data-ui="cvMenu.hint">In the print dialog choose “Save as PDF” and turn off “Headers and footers”.</p>
+
+    <main class="cv-sheet" id="cv"></main>
+
+    <script src="data/profile.js"></script>
+    <script src="data/ui.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/cv.js"></script>
+</body>
+</html>
