@@ -1169,8 +1169,15 @@ footer::before {
     align-items: center;
     flex-wrap: wrap;
     gap: 0.9rem;
-    animation: heroFadeUp 0.8s 0.4s var(--ease) both;
+    /* opacity-only: a transform here would trap the fixed-position CV sheet on phones */
+    animation: heroFadeOnly 0.8s 0.4s var(--ease) both;
 }
+@keyframes heroFadeOnly { from { opacity: 0; } to { opacity: 1; } }
+/* While a CV menu is open, lift its section/row above the following content */
+.hero-actions { position: relative; z-index: 5; }
+section:has(.cv-dropdown.open),
+footer:has(.cv-dropdown.open),
+.hero-actions:has(.cv-dropdown.open) { z-index: 60; }
 .hero-actions .btn-hero { animation: none; }
 
 .cv-dropdown { position: relative; display: inline-block; }
@@ -1371,7 +1378,7 @@ html.no-bg-fx .scroll-cue { display: none; }
 /* Achievements */
 .ach-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr));
     gap: 1.5rem;
 }
 .ach-card {
@@ -1453,7 +1460,7 @@ a.cert-name:hover { color: var(--gold); }
 /* Testimonials / LinkedIn recommendations */
 .tst-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     gap: 1.5rem;
 }
 .tst-card {
@@ -1621,4 +1628,103 @@ html[dir="rtl"] .scroll-progress { transform-origin: right center; }
     .hl-card { flex-direction: column; text-align: center; }
     .hero-stats-row { gap: 1rem; }
     .stat-sep { height: 28px; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE POLISH — readable labels, finger-sized targets,
+   compact hero on tablets/phones, no horizontal overflow at 320px
+════════════════════════════════════════════════════════════ */
+
+/* Minimum readable size for small labels (≥ 12.5px) */
+.section-tag,
+.tl-badge,
+.edu-status,
+.fc-label,
+.stat-lbl,
+.hero-availability-tag,
+.proj-tags span,
+.btn-cv-compact,
+.cv-menu-heading { font-size: max(0.78rem, 12.5px); }
+
+/* Finger-sized header controls (≥ 42px) */
+.logo { display: inline-flex; align-items: center; min-height: 42px; min-width: 42px; }
+.lang-toggle,
+.btn-cv-compact { min-height: 42px; }
+.btn-cv-compact { min-width: 42px; justify-content: center; }
+@media (max-width: 960px) {
+    #header { padding: 0.55rem 0; }
+    #header.scrolled { padding: 0.4rem 0; }
+}
+.hamburger {
+    min-width: 44px; min-height: 44px;
+    align-items: center; justify-content: center;
+}
+
+/* Tablets & phones: small avatar above the name instead of a full-screen graphic */
+@media (max-width: 1024px) {
+    #hero { min-height: auto; padding-bottom: 3.5rem; }
+    .hero-visual {
+        order: -1;
+        height: auto;
+        margin-bottom: -0.5rem;
+    }
+    .hero-visual .ring,
+    .hero-visual .float-badge,
+    .scroll-cue { display: none; }
+    .avatar-core { width: 120px; height: 120px; }
+    .avatar-initials { font-size: 2rem; }
+}
+
+@media (max-width: 768px) {
+    #hero { padding-top: 6.25rem; gap: 1.25rem; }
+    .avatar-core { width: 96px; height: 96px; }
+    .avatar-initials { font-size: 1.6rem; }
+    .hero-actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 340px; margin-inline: auto; }
+    .hero-actions .btn-hero,
+    .hero-actions .cv-dropdown,
+    .hero-actions .btn-cv { width: 100%; justify-content: center; }
+    .hero-stats-row { flex-wrap: wrap; row-gap: 0.75rem; }
+    .stat-lbl { letter-spacing: 0.4px; }
+
+    /* CV menu opens as a bottom sheet so it never leaves the screen */
+    .cv-menu,
+    #header .cv-menu,
+    .cv-dropdown-up .cv-menu {
+        position: fixed;
+        top: auto;
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        inset-inline-start: 12px;
+        inset-inline-end: 12px;
+        width: auto;
+        transform: none;
+        z-index: 1200;
+        background: rgb(var(--bg2-rgb));
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.55);
+    }
+    html[dir="rtl"] .cv-dropdown-up .cv-menu { transform: none; }
+    .cv-menu button, .cv-menu a { min-height: 48px; }
+}
+
+/* Small phones (≤ 420px): compact header, no overflow */
+@media (max-width: 420px) {
+    .nav-container { padding: 0 0.85rem; }
+    .nav-actions { gap: 0.4rem; }
+    .lang-toggle { padding: 0.4rem 0.7rem; gap: 5px; }
+    .lang-next { font-size: 0; }
+    .lang-next::after { content: attr(data-short); font-size: 0.9rem; }
+    .hero-greeting { letter-spacing: 1.5px; }
+    .hero-availability-tag { letter-spacing: 0.3px; }
+    .hero-stats-row { gap: 0.8rem; }
+    .stat-num { font-size: 1.45rem; }
+    .stat-lbl { letter-spacing: 0; }
+    .section-tag { letter-spacing: 1.5px; }
+    .footer-contact-item { width: 100%; }
+}
+
+@media (max-width: 340px) {
+    .stat-sep { display: none; }
+    .hero-stats-row { justify-content: space-around; width: 100%; }
+    .hero-name { font-size: 1.95rem; }
 }

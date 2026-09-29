@@ -363,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const next = $('.lang-next', toggle);
         if (next) {
             next.textContent = isAr ? 'English' : 'العربية';
+            next.dataset.short = isAr ? 'EN' : 'ع'; // shown on very small phones
             next.lang = isAr ? 'en' : 'ar';
         }
     }
