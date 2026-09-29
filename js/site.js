@@ -34,13 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // A section with no content (e.g. no achievements yet) is hidden, together with its nav link.
     const SECTION_HAS_CONTENT = {
-        about:        () => (P.about || []).length || visible(P.highlights, 'site').length,
+        about:        () => (P.about || []).some(p => t(p, lang).trim()) || visible(P.highlights, 'site').length,
         experience:   () => visible(P.experience, 'site').length,
         projects:     () => visible(P.projects, 'site').length,
         achievements: () => visible(P.achievements, 'site').length,
         skills:       () => visible(P.competencies, 'site').length || visible(P.certifications, 'site').length,
         education:    () => visible(P.education, 'site').length,
-        testimonials: () => visible(P.testimonials, 'site').length,
+        testimonials: () => visible(P.testimonials, 'site').filter(r => t(r.text, lang).trim()).length,
         contact:      () => true
     };
     const hasContent = key => !(UI.hiddenSections || []).includes(key)
@@ -49,7 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
         .map(s => s.dataset.section).filter(hasContent);
     const revealed = new Set(); // keys of .anim elements already shown — survives language switches
 
-    const icon = (name, extra = '') => `<i class="fas ${esc(name)} ${extra}" aria-hidden="true"></i>`;
+    /** Font Awesome icon from a dashboard value: "fa-trophy", "trophy", "fab fa-linkedin" or "fa-brands fa-x".
+        Falls back to `fallback` when the field is empty. */
+    const icon = (name, extra = '', fallback = 'fa-circle') => {
+        let cls = String(name || '').trim() || fallback;
+        if (!/\s/.test(cls)) cls = 'fas ' + (cls.startsWith('fa-') ? cls : 'fa-' + cls);
+        return `<i class="${esc(cls)} ${extra}" aria-hidden="true"></i>`;
+    };
 
     /** "View PDF" button for an attached file (certificates, achievements, projects, education). */
     const pdfLink = (file, cls = '') => file
@@ -75,10 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderers = {
         about() {
-            const paragraphs = (P.about || []).map(p => `<p>${t(p, lang)}</p>`).join('');
+            const paragraphs = (P.about || []).filter(p => t(p, lang).trim()).map(p => `<p>${t(p, lang)}</p>`).join('');
             const highlights = visible(P.highlights, 'site').map(h => `
                 <div class="hl-card">
-                    <div class="hl-icon">${icon(h.icon)}</div>
+                    <div class="hl-icon">${icon(h.icon, '', 'fa-star')}</div>
                     <div class="hl-body">
                         <h3>${esc(t(h.title, lang))}</h3>
                         <p>${esc(t(h.text, lang))}</p>
@@ -105,11 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="tl-card glass-card">
                         <div class="tl-meta">
                             <span class="tl-date">${esc(num(formatRange(job.start, job.end, lang, present), lang))}</span>
-                            ${job.tag ? `<span class="tl-badge">${esc(t(job.tag, lang))}</span>` : ''}
+                            ${t(job.tag, lang) ? `<span class="tl-badge">${esc(t(job.tag, lang))}</span>` : ''}
                         </div>
                         <h3>${esc(t(job.role, lang))}</h3>
                         <h4>${esc(org)}</h4>
-                        <ul>${visible(job.points, 'site').map(pt => `<li>${t(pt, lang)}</li>`).join('')}</ul>
+                        <ul>${visible(job.points, 'site').filter(pt => t(pt, lang).trim()).map(pt => `<li>${t(pt, lang)}</li>`).join('')}</ul>
                     </div>
                 </article>`;
             }).join('');
@@ -166,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         testimonials() {
-            const cards = visible(P.testimonials, 'site').map((r, i) => {
+            const cards = visible(P.testimonials, 'site').filter(r => t(r.text, lang).trim()).map((r, i) => {
                 const name = t(r.name, lang);
                 const initials = name.split(/\s+/).filter(Boolean).slice(0, lang === 'ar' ? 1 : 2).map(w => w[0]).join('');
                 const avatar = r.photo
@@ -192,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         skills() {
             const comps = visible(P.competencies, 'site').map(c => `
-                <li class="comp-item"><div class="comp-icon">${icon(c.icon)}</div><span>${esc(t(c.name, lang))}</span></li>`).join('');
+                <li class="comp-item"><div class="comp-icon">${icon(c.icon, '', 'fa-check')}</div><span>${esc(t(c.name, lang))}</span></li>`).join('');
             const certs = visible(P.certifications, 'site').map(c => `
                 <li class="cert-item">
                     <div class="cert-badge">${icon(c.icon || 'fa-certificate')}</div>
@@ -286,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const positions = ['badge-pmp', 'badge-iso', 'badge-ai'];
         $('#heroBadges').innerHTML = (P.badges || []).slice(0, 3).map((b, i) =>
-            `<div class="float-badge ${positions[i]}">${icon(b.icon)}<span>${esc(t(b.text, lang))}</span></div>`
+            `<div class="float-badge ${positions[i]}">${icon(b.icon, '', 'fa-star')}<span>${esc(t(b.text, lang))}</span></div>`
         ).join('');
     }
 

@@ -48,7 +48,7 @@
         const present = t(UI.labels.present, lang);
         return visible(P.experience, 'cv').map(job => {
             const org = [t(job.org, lang), t(job.location, lang)].filter(Boolean).join(lang === 'ar' ? '، ' : ', ');
-            const points = visible(job.points, 'cv');
+            const points = visible(job.points, 'cv').filter(pt => plain(t(pt, lang)));
             return `
             <div class="cv-entry">
                 <div class="cv-entry-head">
